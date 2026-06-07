@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Novelist & Book Writer OS</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:transparent;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:16px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+
+a.widget{
+  display:flex;
+  max-width:920px;
+  width:100%;
+  text-decoration:none;
+  color:inherit;
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:0 14px 42px rgba(0,0,0,.11);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+
+a.widget:hover{
+  transform:translateY(-4px);
+  box-shadow:0 22px 56px rgba(0,0,0,.16);
+  border-color:rgba(160,90,44,.30);
+}
+
+.content{
+  width:46%;
+  flex:0 0 46%;
+  padding:26px 26px 24px;
+  background:linear-gradient(135deg,#fff8f3 0%,#ffffff 100%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.image-wrap{
+  width:54%;
+  flex:0 0 54%;
+  background:#f7f2ee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+
+.image-wrap img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  border-radius:14px;
+}
+
+.badge{
+  display:inline-flex;
+  width:max-content;
+  max-width:100%;
+  align-items:center;
+  gap:6px;
+  background:#f2dfd3;
+  color:#8a5135;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.3px;
+  padding:7px 11px;
+  border-radius:999px;
+  margin-bottom:14px;
+}
+
+.kicker{
+  color:#a05a2c;
+  font-size:12px;
+  font-weight:850;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+h2{
+  color:#211916;
+  font-size:clamp(21px,2.7vw,30px);
+  line-height:1.12;
+  letter-spacing:-.6px;
+  margin-bottom:10px;
+}
+
+.sub{
+  color:#5f514b;
+  font-size:clamp(13px,1.7vw,15px);
+  line-height:1.5;
+  margin-bottom:16px;
+}
+
+.points{
+  display:grid;
+  gap:9px;
+  margin-bottom:18px;
+}
+
+.point{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+}
+
+.icon{
+  flex-shrink:0;
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  background:#5b3a26;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:800;
+  margin-top:1px;
+}
+
+.point span{
+  color:#3e332f;
+  font-size:clamp(12px,1.6vw,14px);
+  line-height:1.35;
+  font-weight:600;
+}
+
+.footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding-top:16px;
+  border-top:1px solid rgba(0,0,0,.07);
+}
+
+.micro{
+  color:#756862;
+  font-size:clamp(11px,1.5vw,13px);
+  font-weight:500;
+}
+
+.btn{
+  flex-shrink:0;
+  background:#5b3a26;
+  color:#fff;
+  font-size:clamp(12px,1.6vw,14px);
+  font-weight:750;
+  padding:9px 16px;
+  border-radius:999px;
+  letter-spacing:.2px;
+  transition:background .2s ease,transform .2s ease;
+}
+
+a.widget:hover .btn{
+  background:#a05a2c;
+  transform:translateX(2px);
+}
+
+@media(max-width:760px){
+  a.widget{
+    flex-direction:column;
+    max-width:620px;
+  }
+
+  .content,
+  .image-wrap{
+    width:100%;
+    flex:0 0 auto;
+  }
+
+  .image-wrap{
+    order:-1;
+    padding:12px;
+  }
+
+  .content{
+    padding:21px 18px 20px;
+  }
+}
+
+@media(max-width:480px){
+  body{
+    padding:10px;
+  }
+
+  .footer{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a class="widget" href="https://notomantra.gumroad.com/l/novelist-book-writer-os" target="_blank" rel="noopener">
+
+  <div class="content">
+    <div class="badge">✦ For Novelists &amp; Writers</div>
+
+    <div class="kicker">Upgrade to the Full OS</div>
+
+    <h2>Plan, write and publish your whole book from one connected system.</h2>
+
+    <p class="sub">
+      Built for writers who want the entire book in one place, manuscript, world, plot and publishing, not just a single tracker.
+    </p>
+
+    <div class="points">
+      <div class="point">
+        <div class="icon">✓</div>
+        <span>Draft chapter by chapter, with characters, world and plot all linked.</span>
+      </div>
+
+      <div class="point">
+        <div class="icon">✓</div>
+        <span>Build a story bible and worldbuilding that adapts to your genre.</span>
+      </div>
+
+      <div class="point">
+        <div class="icon">✓</div>
+        <span>Track your writing streak, run sprints, and manage tasks and deadlines.</span>
+      </div>
+
+      <div class="point">
+        <div class="icon">✓</div>
+        <span>Handle queries, submissions and launches in one publishing pipeline.</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="micro">Preview everything before you buy. No gatekeeping.</div>
+      <div class="btn">Get the Full OS →</div>
+    </div>
+  </div>
+
+  <div class="image-wrap">
+    <img src="https://public-files.gumroad.com/4ehzkuomhmjl079z6ji3tb344vt3" alt="Novelist &amp; Book Writer OS" loading="lazy">
+  </div>
+
+</a>
+
+</body>
+</html>
