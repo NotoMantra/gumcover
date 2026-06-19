@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Travel Agency OS</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:transparent;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:16px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+
+a.widget{
+  display:flex;
+  max-width:920px;
+  width:100%;
+  text-decoration:none;
+  color:inherit;
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:0 14px 42px rgba(0,0,0,.11);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+
+a.widget:hover{
+  transform:translateY(-4px);
+  box-shadow:0 22px 56px rgba(0,0,0,.16);
+  border-color:rgba(156,109,80,.32);
+}
+
+.content{
+  width:46%;
+  flex:0 0 46%;
+  padding:26px 26px 24px;
+  background:linear-gradient(135deg,#faf5f1 0%,#ffffff 100%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.image-wrap{
+  width:54%;
+  flex:0 0 54%;
+  background:#f0e8e1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+
+.image-wrap img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  border-radius:14px;
+}
+
+.badge{
+  display:inline-flex;
+  width:max-content;
+  max-width:100%;
+  align-items:center;
+  gap:6px;
+  background:#efe4db;
+  color:#74543f;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.3px;
+  padding:7px 11px;
+  border-radius:999px;
+  margin-bottom:14px;
+}
+
+.kicker{
+  color:#946a4e;
+  font-size:12px;
+  font-weight:850;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+h2{
+  color:#271d17;
+  font-size:clamp(21px,2.7vw,30px);
+  line-height:1.12;
+  letter-spacing:-.6px;
+  margin-bottom:10px;
+}
+
+.sub{
+  color:#5c4f47;
+  font-size:clamp(13px,1.7vw,15px);
+  line-height:1.5;
+  margin-bottom:16px;
+}
+
+.points{
+  display:grid;
+  gap:9px;
+  margin-bottom:18px;
+}
+
+.point{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+}
+
+.icon{
+  flex-shrink:0;
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  background:#604536;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:800;
+  margin-top:1px;
+}
+
+.point span{
+  color:#3e332f;
+  font-size:clamp(12px,1.6vw,14px);
+  line-height:1.35;
+  font-weight:600;
+}
+
+.footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding-top:16px;
+  border-top:1px solid rgba(0,0,0,.07);
+}
+
+.micro{
+  color:#756862;
+  font-size:clamp(11px,1.5vw,13px);
+  font-weight:500;
+}
+
+.btn{
+  flex-shrink:0;
+  background:#604536;
+  color:#fff;
+  font-size:clamp(12px,1.6vw,14px);
+  font-weight:750;
+  padding:9px 16px;
+  border-radius:999px;
+  letter-spacing:.2px;
+  transition:background .2s ease,transform .2s ease;
+}
+
+a.widget:hover .btn{
+  background:#946a4e;
+  transform:translateX(2px);
+}
+
+@media(max-width:760px){
+  a.widget{
+    flex-direction:column;
+    max-width:620px;
+  }
+
+  .content,
+  .image-wrap{
+    width:100%;
+    flex:0 0 auto;
+  }
+
+  .image-wrap{
+    order:-1;
+    padding:12px;
+  }
+
+  .content{
+    padding:21px 18px 20px;
+  }
+}
+
+@media(max-width:480px){
+  body{
+    padding:10px;
+  }
+
+  .footer{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a class="widget" href="https://notomantra.gumroad.com/l/travel-tour-agent-crm" target="_blank" rel="noopener">
+
+  <div class="content">
+    <div class="badge">&#10022; For Travel Agents &amp; Tour Operators</div>
+
+    <div class="kicker">Upgrade to the Full OS</div>
+
+    <h2>Run your entire travel agency from one connected workspace.</h2>
+
+    <p class="sub">
+      Built for agents and operators who run trips from spreadsheets, their inbox, and memory. Every trip, client, supplier, payment and task, all connected, all in one place.
+    </p>
+
+    <div class="points">
+      <div class="point">
+        <div class="icon">&#10003;</div>
+        <span>One trip is one row, holding the client, travelers, dates, itinerary, documents and money.</span>
+      </div>
+
+      <div class="point">
+        <div class="icon">&#10003;</div>
+        <span>Log a payment or commission once, and profit, balances and commission owed calculate themselves.</span>
+      </div>
+
+      <div class="point">
+        <div class="icon">&#10003;</div>
+        <span>A real CRM with lead follow-ups, VIP flags, and passport expiry warnings before they bite.</span>
+      </div>
+
+      <div class="point">
+        <div class="icon">&#10003;</div>
+        <span>Sell from a supplier library, sort tasks by trip, and send from 27 ready client emails.</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="micro">Preview everything before you buy. No gatekeeping.</div>
+      <div class="btn">Get the Full OS &#8594;</div>
+    </div>
+  </div>
+
+  <div class="image-wrap">
+    <img src="https://public-files.gumroad.com/23n1z37xasgj29ahjzs70jitne99" alt="Travel Agency OS" loading="lazy">
+  </div>
+
+</a>
+
+</body>
+</html>
