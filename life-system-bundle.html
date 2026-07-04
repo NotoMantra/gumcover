@@ -35,9 +35,9 @@
   }
   .card{
     width:100%;
-    max-width:800px;
+    max-width:820px;
     display:grid;
-    grid-template-columns:1.08fr 1fr;
+    grid-template-columns:minmax(0,0.85fr) minmax(0,1fr);
     background:var(--cardbg);
     border:1px solid var(--stroke);
     border-radius:18px;
@@ -50,11 +50,11 @@
 
   /* LEFT PANEL */
   .info{
-    padding:26px;
+    padding:24px 24px;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    gap:16px;
+    gap:12px;
   }
   .pill{
     align-self:flex-start;
@@ -88,7 +88,7 @@
     list-style:none;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:8px;
     margin-top:2px;
   }
   .features li{
@@ -140,7 +140,7 @@
   .cover img{
     display:block;
     max-width:100%;
-    max-height:100%;
+    max-height:290px;
     width:auto;height:auto;
     object-fit:contain;
     border-radius:12px;
@@ -161,12 +161,12 @@
     <div class="info">
       <span class="pill"><span class="spark">&#10022;</span> One system for your whole life</span>
       <div class="name">The Complete Life System Bundle</div>
-      <div class="tagline">Single templates only fix one slice of life. Your habits don't talk to your budget, your goals stall by week two. This connects all of it in one workspace.</div>
+      <div class="tagline">Single templates fix one slice of life. This connects all of it in one workspace.</div>
       <ul class="features">
-        <li><span class="tick">&#10003;</span> Daily planning, habits, tasks, finance and goals in one connected workspace</li>
-        <li><span class="tick">&#10003;</span> ADHD-friendly life management with energy modes and built-in recovery protocols</li>
-        <li><span class="tick">&#10003;</span> Three years of pre-built days ready to log, zero setup</li>
-        <li><span class="tick">&#10003;</span> Lifetime access, free updates, no subscription, your data stays yours</li>
+        <li><span class="tick">&#10003;</span> Planning, habits, tasks, finance and goals in one hub</li>
+        <li><span class="tick">&#10003;</span> ADHD-friendly, with energy modes and recovery built in</li>
+        <li><span class="tick">&#10003;</span> Three years of pre-built days, zero setup</li>
+        <li><span class="tick">&#10003;</span> Lifetime access, no subscription, data stays yours</li>
       </ul>
       <span class="cta">Get the bundle &#8594;</span>
     </div>
