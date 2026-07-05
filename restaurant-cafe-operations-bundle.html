@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Restaurant & Cafe Operations Bundle</title>
+<style>
+  /* ============================================================
+     NotoMantra freemium upsell widget, warm theme
+     REUSE:
+     1. Change the href on <a class="card"> to your product link.
+     2. Change the <img src> to your full cover image.
+     3. Edit pill, name, tagline, features below.
+     No em dashes. No product or system counts.
+     ============================================================ */
+  :root{
+    --ink:#3B3226;        /* espresso, primary text */
+    --muted:#8d8371;      /* taupe, secondary text  */
+    --line:#ece4d6;       /* hairline border        */
+    --cream:#FDFBF6;      /* card background        */
+    --sand:#F6EFE4;       /* cover panel backdrop   */
+    --accent:#A87C4F;     /* caramel, pill + button */
+    --accent-dark:#8c6540;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:transparent;
+    display:flex;justify-content:center;align-items:center;
+    min-height:100vh;padding:12px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  }
+  a.card{
+    display:grid;
+    grid-template-columns:0.85fr 1fr;   /* cover is the wider side, landscape banner */
+    width:100%;max-width:860px;
+    text-decoration:none;color:inherit;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:18px;overflow:hidden;cursor:pointer;
+    box-shadow:0 2px 12px rgba(59,50,38,0.06);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  a.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 16px 38px rgba(59,50,38,0.16);
+  }
+  /* LEFT: info panel */
+  .info{
+    padding:26px 24px;
+    display:flex;flex-direction:column;justify-content:center;gap:12px;
+  }
+  .pill{
+    align-self:flex-start;
+    font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:var(--accent-dark);
+    background:rgba(168,124,79,0.12);
+    padding:5px 11px;border-radius:999px;
+  }
+  .name{font-size:21px;font-weight:800;color:var(--ink);line-height:1.15;}
+  .tag{font-size:13px;color:var(--muted);line-height:1.45;margin-top:-2px;}
+  .features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+  .features li{
+    display:flex;align-items:flex-start;gap:9px;
+    font-size:13px;color:var(--ink);line-height:1.35;
+  }
+  .features li .spark{color:var(--accent);font-weight:800;flex-shrink:0;margin-top:1px;}
+  .cta{
+    margin-top:8px;align-self:flex-start;
+    background:var(--accent);color:#fff;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;border-radius:10px;
+    display:inline-flex;align-items:center;gap:7px;
+    transition:background .2s ease;
+  }
+  a.card:hover .cta{background:var(--accent-dark);}
+  /* RIGHT: cover panel */
+  .cover{
+    background:var(--sand);
+    display:flex;align-items:center;justify-content:center;
+    padding:16px;
+  }
+  .cover img{
+    max-width:100%;max-height:100%;
+    border-radius:10px;display:block;
+    box-shadow:0 6px 18px rgba(59,50,38,0.14);
+  }
+  @media (max-width:620px){
+    a.card{grid-template-columns:1fr;max-width:420px;}
+    .cover{order:-1;}
+  }
+</style>
+</head>
+<body>
+  <a class="card" href="https://notomantra.gumroad.com/l/restaurant-cafe-operations-bundle" target="_blank" rel="noopener">
+    <div class="info">
+      <span class="pill">Save on the full set</span>
+      <div class="name">Restaurant &amp; Cafe Operations Bundle</div>
+      <div class="tag">Run the floor in Notion. Check the money in Excel. Everything a food business needs in one setup.</div>
+      <ul class="features">
+        <li><span class="spark">&#9733;</span> Full restaurant system: menu, stock, staff, orders, guests</li>
+        <li><span class="spark">&#9733;</span> Cafe and coffee shop workspace with SOPs and financials</li>
+        <li><span class="spark">&#9733;</span> Money spreadsheet: food cost, menu profit, break-even</li>
+        <li><span class="spark">&#9733;</span> Cheaper together than buying each on its own</li>
+      </ul>
+      <span class="cta">Get the bundle &#8594;</span>
+    </div>
+    <div class="cover">
+      <img src="https://public-files.gumroad.com/hjaq0dstnemvhqs0cgamccmy02t9" alt="Restaurant and Cafe Operations Bundle"/>
+    </div>
+  </a>
+</body>
+</html>
