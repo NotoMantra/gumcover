@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Writer's Bundle</title>
+<style>
+  /* ============================================================
+     NotoMantra freemium upgrade widget, beige theme
+     HOW TO REUSE:
+     1. Change the href on <a class="card"> to your product link.
+     2. Change the <img src> to your full cover image.
+     3. Edit the name, tagline, features and pill text below.
+     4. Drop into your gumcover repo and embed the page URL in Notion.
+     ============================================================ */
+  :root{
+    --beige:#f1e9dc;
+    --beige-2:#e7dbc7;
+    --ink:#3a2e22;
+    --ink-soft:#6c5c49;
+    --brown:#8a6b47;
+    --brown-deep:#5f472e;
+    --tan:#a07c52;
+    --stroke:rgba(95,71,46,0.15);
+    --shadow:rgba(95,71,46,0.22);
+    --tick:#8a6b47;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:transparent}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px;
+  }
+  a.card{
+    display:grid;
+    grid-template-columns:0.85fr 1fr;
+    align-items:stretch;
+    width:100%;
+    max-width:720px;
+    text-decoration:none;
+    color:var(--ink);
+    background:linear-gradient(180deg,var(--beige) 0%,var(--beige-2) 100%);
+    border:1px solid var(--stroke);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 6px 20px var(--shadow);
+    transition:transform .22s ease, box-shadow .22s ease;
+  }
+  a.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 34px var(--shadow);
+  }
+
+  /* Left info panel */
+  .info{
+    padding:22px 22px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .pill{
+    align-self:flex-start;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#fff;
+    background:linear-gradient(180deg,var(--brown) 0%,var(--brown-deep) 100%);
+    padding:5px 11px;
+    border-radius:999px;
+  }
+  .name{
+    font-size:21px;
+    font-weight:800;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .tagline{
+    font-size:13px;
+    line-height:1.45;
+    color:var(--ink-soft);
+    margin-top:-2px;
+  }
+  .features{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    margin-top:2px;
+  }
+  .features li{
+    position:relative;
+    padding-left:20px;
+    font-size:12.5px;
+    line-height:1.35;
+    color:var(--ink);
+  }
+  .features li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:5px;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--tick);
+    box-shadow:inset 0 0 0 2px var(--beige);
+  }
+  .cta{
+    margin-top:6px;
+    align-self:flex-start;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.01em;
+    color:#fff;
+    background:linear-gradient(180deg,var(--tan) 0%,var(--brown) 100%);
+    padding:10px 18px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(138,107,71,0.35);
+  }
+
+  /* Right cover panel */
+  .cover{
+    background:
+      radial-gradient(120% 120% at 70% 20%, rgba(160,124,82,0.16) 0%, rgba(95,71,46,0.05) 55%, transparent 100%),
+      var(--beige-2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    border-left:1px solid var(--stroke);
+  }
+  .cover img{
+    display:block;
+    max-width:100%;
+    max-height:260px;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border-radius:10px;
+    box-shadow:0 6px 18px rgba(58,46,34,0.28);
+  }
+
+  /* Mobile: stack cover on top, info below */
+  @media (max-width:520px){
+    a.card{
+      grid-template-columns:1fr;
+    }
+    .cover{
+      order:-1;
+      border-left:none;
+      border-bottom:1px solid var(--stroke);
+      padding:18px;
+    }
+    .cover img{max-height:200px}
+    .info{padding:20px}
+    .name{font-size:20px}
+  }
+</style>
+</head>
+<body>
+
+  <a class="card" href="https://notomantra.gumroad.com/l/romantasy-author-bundle" target="_blank" rel="noopener">
+    <div class="info">
+      <span class="pill">Writer's Bundle</span>
+      <div class="name">Worldbuilding + Novel &amp; Publishing OS</div>
+      <div class="tagline">Everything to write and publish your book, plus the engine that keeps your romance and fantasy arcs from drifting apart.</div>
+      <ul class="features">
+        <li>Plan, draft and publish, all in Notion</li>
+        <li>Convergence Engine syncs both arcs</li>
+        <li>Worldbuilding, magic and lore lenses</li>
+        <li>Query, submission and launch tracking</li>
+      </ul>
+      <span class="cta">Get the Bundle</span>
+    </div>
+    <div class="cover">
+      <img src="https://public-files.gumroad.com/odhzsxkqb0tys8jgrau90fpq4tea" alt="Writer's Bundle cover" loading="lazy"/>
+    </div>
+  </a>
+
+</body>
+</html>
