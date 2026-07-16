@@ -6,73 +6,95 @@
 <title>Leave a rating</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#211428;
-    --ink-lift:#2f1c38;
+  /* ---------- LIGHT (default) ---------- */
+  :root,
+  [data-theme="light"]{
+    --surface:#FBF7F2;
+    --surface-2:#FFFFFF;
+    --edge:#EBE2D7;
+    --edge-soft:#F2EAE0;
+    --text:#2A2228;
+    --text-2:#7A6C74;
+    --text-3:#9C8E96;
+    --gold:#E8A02C;
+    --gold-hot:#F5B23E;
+    --gold-dead:#E3DAD0;
+    --btn-bg:#2A2228;
+    --btn-text:#FBF7F2;
+    --btn-bg-hot:#3D323A;
+    --bloom:rgba(232,160,44,.10);
+  }
+  /* ---------- DARK ---------- */
+  [data-theme="dark"]{
+    --surface:#241A2A;
+    --surface-2:#2E2135;
     --edge:rgba(246,239,230,.10);
+    --edge-soft:rgba(246,239,230,.07);
+    --text:#F4EDE6;
+    --text-2:#A897AE;
+    --text-3:#87748D;
     --gold:#F5B23E;
     --gold-hot:#FFC85C;
-    --gold-dead:#5d4527;
-    --cream:#F6EFE6;
-    --muted:#A08FA6;
-    --r:14px;
+    --gold-dead:#544;
+    --gold-dead:#4E3A2C;
+    --btn-bg:#F5B23E;
+    --btn-text:#2A1A0A;
+    --btn-bg-hot:#FFC85C;
+    --bloom:rgba(245,178,62,.13);
   }
+
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
   body{
     background:transparent;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     -webkit-font-smoothing:antialiased;
-    padding:6px;
-    display:flex;
-    align-items:center;
+    padding:4px;
   }
 
   .bar{
     width:100%;
-    background:
-      radial-gradient(120% 180% at 8% 50%, #3a2244 0%, var(--ink) 55%),
-      var(--ink);
+    background:var(--surface);
     border:1px solid var(--edge);
-    border-radius:var(--r);
-    padding:20px 26px;
+    border-radius:16px;
+    padding:22px 26px;
     display:grid;
-    grid-template-columns:auto 1fr auto;
+    grid-template-columns:auto 1px 1fr auto;
     align-items:center;
-    gap:32px;
+    gap:26px;
     position:relative;
     overflow:hidden;
   }
-  /* faint gold bloom behind the stars — the one flourish */
+  /* the one flourish: warmth blooms behind the stars only once touched */
   .bar::before{
     content:"";
     position:absolute;
-    left:-40px;top:50%;
-    width:280px;height:280px;
+    left:-50px;top:50%;
+    width:300px;height:300px;
     transform:translateY(-50%);
-    background:radial-gradient(circle, rgba(245,178,62,.13) 0%, transparent 65%);
+    background:radial-gradient(circle, var(--bloom) 0%, transparent 65%);
     pointer-events:none;
     opacity:0;
-    transition:opacity .45s ease;
+    transition:opacity .5s ease;
   }
   .bar.warm::before{opacity:1}
+  .rule{
+    width:1px;height:44px;
+    background:var(--edge-soft);
+  }
 
-  /* ---- stars ---- */
-  .stars{display:flex;gap:5px;align-items:center;flex-shrink:0}
+  /* ---- stars: the signature ---- */
+  .stars{display:flex;gap:4px;align-items:center;flex-shrink:0;position:relative}
   .star{
     background:none;border:0;padding:2px;cursor:pointer;
     line-height:0;border-radius:6px;
-    transition:transform .16s cubic-bezier(.34,1.6,.64,1);
+    transition:transform .18s cubic-bezier(.34,1.7,.64,1);
   }
-  .star svg{width:31px;height:31px;display:block}
-  .star path{
-    fill:var(--gold-dead);
-    transition:fill .18s ease;
-  }
+  .star svg{width:30px;height:30px;display:block}
+  .star path{fill:var(--gold-dead);transition:fill .2s ease}
   .star.lit path{fill:var(--gold)}
-  .star.lit{transform:scale(1.1)}
+  .star.lit{transform:scale(1.09)}
   .star.hot path{fill:var(--gold-hot)}
   .star:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
@@ -80,65 +102,62 @@
   .copy{min-width:0}
   .ask{
     font-family:'Bricolage Grotesque','Inter',sans-serif;
-    font-weight:800;
-    font-size:19px;
-    letter-spacing:-.02em;
-    color:var(--cream);
-    line-height:1.25;
+    font-weight:700;
+    font-size:17.5px;
+    letter-spacing:-.015em;
+    color:var(--text);
+    line-height:1.3;
   }
   .sub{
     margin-top:5px;
     font-size:13px;
     line-height:1.5;
-    color:var(--muted);
+    color:var(--text-2);
   }
-  .sub b{color:#D8C6DD;font-weight:600}
+  .sub b{color:var(--text);font-weight:600}
   .proof{
     margin-top:9px;
-    display:flex;align-items:center;gap:8px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
     font-size:11.5px;font-weight:500;
-    color:#8E7A94;
-    letter-spacing:.02em;
+    color:var(--text-3);
+    letter-spacing:.015em;
   }
-  .dot{width:3px;height:3px;border-radius:50%;background:#5c4a63;flex-shrink:0}
+  .proof:empty{display:none}
+  .dot{width:3px;height:3px;border-radius:50%;background:var(--edge);flex-shrink:0}
 
   /* ---- cta ---- */
-  .act{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+  .act{display:flex;flex-direction:column;align-items:flex-end;gap:9px;flex-shrink:0}
   .go{
     display:inline-flex;align-items:center;gap:9px;
-    background:var(--gold);
-    color:#2A1A0A;
+    background:var(--btn-bg);
+    color:var(--btn-text);
     font-family:'Bricolage Grotesque','Inter',sans-serif;
-    font-weight:700;
-    font-size:14.5px;
-    letter-spacing:-.01em;
-    padding:13px 22px;
-    border:0;border-radius:10px;
-    cursor:pointer;
+    font-weight:700;font-size:14px;letter-spacing:-.005em;
+    padding:12px 20px;
+    border-radius:10px;
+    text-decoration:none;
     white-space:nowrap;
-    transition:transform .16s cubic-bezier(.34,1.6,.64,1), background .16s ease, box-shadow .2s ease;
-    box-shadow:0 0 0 0 rgba(245,178,62,0);
+    transition:transform .18s cubic-bezier(.34,1.7,.64,1), background .18s ease, box-shadow .22s ease;
   }
-  .go:hover{background:var(--gold-hot);transform:translateY(-1px);box-shadow:0 6px 22px -6px rgba(245,178,62,.55)}
+  .go:hover{background:var(--btn-bg-hot);transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(0,0,0,.35)}
   .go:active{transform:translateY(0)}
-  .go:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+  .go:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
   .go svg{width:14px;height:14px;flex-shrink:0}
   .fix{
-    font-size:11.5px;
-    color:#8E7A94;
-    text-decoration:none;
+    font-size:11.5px;color:var(--text-3);text-decoration:none;
     border-bottom:1px solid transparent;
     transition:color .16s ease,border-color .16s ease;
   }
-  .fix:hover{color:var(--cream);border-color:#6b586f}
+  .fix:hover{color:var(--text);border-color:var(--edge)}
 
-  @media (max-width:820px){
-    .bar{grid-template-columns:1fr;gap:18px;padding:22px;text-align:center}
-    .stars{justify-content:center}
-    .act{align-items:center}
+  @media (max-width:840px){
+    .bar{grid-template-columns:1fr;gap:16px;padding:22px;text-align:center;justify-items:center}
+    .rule{width:60px;height:1px}
+    .act{align-items:stretch;width:100%}
     .proof{justify-content:center}
     .go{width:100%;justify-content:center}
-    .bar::before{left:50%;top:-60px;transform:translateX(-50%)}
+    .fix{text-align:center}
+    .bar::before{left:50%;top:-70px;transform:translateX(-50%)}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important}
@@ -148,51 +167,51 @@
 </head>
 <body>
 
-<div class="bar" id="bar">
-
+<div class="bar" id="bar" data-theme="light">
   <div class="stars" id="stars" role="group" aria-label="Rate this template"></div>
-
+  <div class="rule"></div>
   <div class="copy">
-    <div class="ask" id="ask">Built by one person. Not a company.</div>
+    <div class="ask" id="ask">Made by one person. Not a company.</div>
     <div class="sub" id="sub">
-      Ratings are the only reason this template gets found by the next person who needs it.
+      Ratings are the only reason this gets found by the next person who needs it.
       <b>Stars only, no writing needed.</b> Takes about 8 seconds.
     </div>
-    <div class="proof">
-      <span id="proof-a">1,000+ people use this</span>
-      <span class="dot"></span>
-      <span>Rated 4.95 / 5</span>
-      <span class="dot"></span>
-      <span>Rate from your Gumroad Library</span>
-    </div>
+    <div class="proof" id="proof"></div>
   </div>
-
   <div class="act">
-    <button class="go" id="go">
+    <a class="go" id="go" target="_blank" rel="noopener" href="#">
       <span id="go-label">Rate this template</span>
       <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-    </button>
-    <a class="fix" id="fix" href="#" target="_blank" rel="noopener">Something broken? Tell me first, I'll fix it</a>
+    </a>
+    <a class="fix" id="fix" target="_blank" rel="noopener" href="#">Something broken? Tell me first, I'll fix it</a>
   </div>
-
 </div>
 
 <script>
-/* ─────────────────────────────────────────────
-   CONFIG — edit these four lines per product
-   ───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   CONFIG — the only part you edit
+   ═══════════════════════════════════════════════════ */
 const CONFIG = {
+
   // Buyer's Reviews page inside their Gumroad Library.
   reviewUrl : "https://app.gumroad.com/reviews",
-  // Your support address. Catches the 1-star before it lands.
+
+  // Where a broken-thing email goes.
   supportUrl: "mailto:hello@notomantra.com?subject=Issue%20with%20my%20template",
-  // Social proof. Keep these honest and current.
-  users     : "1,000+ people use this",
-  rating    : "4.95 / 5"
+
+  // "light" or "dark". Light is safer inside a normal Notion page.
+  theme     : "light",
+
+  // Numbers are OFF by default so this is safe to drop on a brand new
+  // template. Only fill these in when they are TRUE for that product.
+  // Leave the array empty and the row disappears cleanly.
+  //   proof: ["1,000+ downloads", "Rated 4.95 / 5"]
+  proof     : []
+
 };
-/* ───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════ */
 
 const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.4l2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.25l-5.81 3.05L7.3 13.83 2.6 9.25l6.5-.95L12 2.4z"/></svg>';
 
@@ -202,9 +221,19 @@ const go    = document.getElementById('go');
 const label = document.getElementById('go-label');
 const ask   = document.getElementById('ask');
 const sub   = document.getElementById('sub');
+const proof = document.getElementById('proof');
 
+bar.setAttribute('data-theme', CONFIG.theme === 'dark' ? 'dark' : 'light');
+go.href  = CONFIG.reviewUrl;
 document.getElementById('fix').href = CONFIG.supportUrl;
-document.getElementById('proof-a').textContent = CONFIG.users;
+
+/* Proof row: always ends with the location, since that is true everywhere
+   and it is the thing that removes the "where do I even do this" friction. */
+const claims = [...(CONFIG.proof || []), "Rate from your Gumroad Library"];
+claims.forEach((t, i) => {
+  if (i) { const d = document.createElement('span'); d.className = 'dot'; proof.appendChild(d); }
+  const s = document.createElement('span'); s.textContent = t; proof.appendChild(s);
+});
 
 let locked = 0;
 
@@ -231,25 +260,18 @@ function paint(n, hot) {
   });
 }
 
-/* Every rating goes to the same place. No gating, no filtering.
-   The click here is the commitment; Gumroad is where it's confirmed. */
+/* Every rating, 1 through 5, goes to the same URL. No gating.
+   The click here is the commitment. Gumroad is where it gets confirmed. */
 function pick(n) {
   locked = n;
   paint(n, false);
   bar.classList.add('warm');
   ask.textContent = n >= 4 ? "Thank you. Genuinely." : "Thanks for being honest.";
   sub.innerHTML = n >= 4
-    ? "One more click to lock it in on Gumroad. Your library opens in a new tab."
-    : "Confirm it on Gumroad, and if something's wrong, tell me and I'll fix it.";
-  label.textContent = "Confirm " + n + (n === 1 ? " star" : " stars") + " on Gumroad";
-  open();
+    ? "One more click to lock it in on Gumroad. Opens in a new tab."
+    : "Confirm it on Gumroad. And if something is wrong, tell me and I will fix it.";
+  label.textContent = "Confirm " + n + (n === 1 ? " star" : " stars");
+  // Real anchor click — survives the iframe sandbox that blocks window.open()
+  go.click();
 }
-
-go.addEventListener('click', open);
-
-function open() {
-  window.open(CONFIG.reviewUrl, '_blank', 'noopener');
-}
-</script>
-</body>
-</html>
+</script></body></html>
