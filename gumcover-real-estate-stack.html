@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real Estate Agent Complete Stack</title>
+<style>
+  :root{
+    --bg:#F5F0E6;
+    --bg-2:#EDE5D6;
+    --ink:#2E2822;
+    --ink-soft:#6B6154;
+    --line:#DDD2BE;
+    --accent:#8A6A3E;
+    --accent-dark:#6E5330;
+    --white:#FFFDF8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:transparent}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:100%;
+    background:linear-gradient(100deg,var(--bg) 0%,var(--bg-2) 100%);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .strip{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    min-height:190px;
+  }
+
+  /* cover */
+  .cover{
+    flex:0 0 300px;
+    background:var(--white);
+    border-right:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px;
+  }
+  .cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:8px;
+    display:block;
+  }
+
+  /* body */
+  .body{
+    flex:1 1 auto;
+    padding:22px 26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:12px;
+    min-width:0;
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+  }
+  h1{
+    font-size:26px;
+    line-height:1.15;
+    color:var(--ink);
+    font-weight:800;
+    letter-spacing:-.02em;
+  }
+  .sub{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.5;
+    max-width:70ch;
+  }
+  .pills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .pill{
+    font-size:12px;
+    color:var(--ink);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 11px;
+    white-space:nowrap;
+  }
+  .pill b{font-weight:700}
+
+  /* cta */
+  .cta{
+    flex:0 0 240px;
+    border-left:1px solid var(--line);
+    background:rgba(255,253,248,.55);
+    padding:22px 22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    text-align:center;
+  }
+  .price{
+    font-size:34px;
+    font-weight:800;
+    color:var(--ink);
+    letter-spacing:-.03em;
+    line-height:1;
+  }
+  .price span{font-size:15px;font-weight:600;color:var(--ink-soft);margin-left:4px}
+  .note{font-size:12px;color:var(--ink-soft);line-height:1.4}
+  .btn{
+    display:block;
+    width:100%;
+    background:var(--accent);
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    font-size:15px;
+    padding:12px 16px;
+    border-radius:9px;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
+  .fine{font-size:11px;color:var(--ink-soft)}
+
+  @media (max-width:900px){
+    .strip{flex-direction:column}
+    .cover{flex:0 0 auto;border-right:none;border-bottom:1px solid var(--line);height:180px}
+    .cta{flex:0 0 auto;border-left:none;border-top:1px solid var(--line)}
+    h1{font-size:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="strip">
+
+    <div class="cover">
+      <img src="https://public-files.gumroad.com/fjcsx2hajh1f37tr0c6jqyueh7ur" alt="Real Estate Agent Complete Stack">
+    </div>
+
+    <div class="body">
+      <div class="eyebrow">Complete Stack &middot; 3 Tools</div>
+      <h1>Real Estate Agent Complete Stack</h1>
+      <p class="sub">Three tools. Three jobs. No overlap. The CRM knows a deal exists. CloseSheet knows what you keep from it. ListForge is the reason it came in.</p>
+      <div class="pills">
+        <span class="pill"><b>Agent Pro</b> &middot; 9 databases, 47 views</span>
+        <span class="pill"><b>CloseSheet</b> &middot; net sheet, CMA, cap tracking</span>
+        <span class="pill"><b>ListForge</b> &middot; 20 marketing assets</span>
+        <span class="pill">No subscription &middot; Lifetime updates</span>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="price">$39<span>one time</span></div>
+      <div class="note">Cheaper than buying the three separately</div>
+      <a class="btn" href="https://notomantra.gumroad.com/l/real-estate-agent-complete-stack" target="_blank" rel="noopener">Get the Stack</a>
+      <div class="fine">Instant download &middot; No login, no lock-in</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
