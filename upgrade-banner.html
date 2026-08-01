@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Upgrade to the Full Planner</title>
+<style>
+  :root{
+    --orange:#D9730D;
+    --orange-strong:#B85F08;
+    --orange-soft:rgba(217,115,13,.62);
+    --orange-line:rgba(217,115,13,.30);
+    --orange-hover:rgba(217,115,13,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{background:transparent}
+  body{
+    margin:0; color:var(--orange-strong);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    padding:16px; display:flex; justify-content:center;
+  }
+  .banner{
+    width:100%; max-width:920px; background:transparent;
+    border:1.5px solid var(--orange-line); border-radius:22px;
+    display:flex; align-items:center; gap:26px; padding:24px 28px; overflow:hidden;
+  }
+  .copy{flex:1; min-width:0}
+  .eyebrow{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--orange-soft); margin:0 0 7px}
+  h2{margin:0 0 9px; font-size:22px; line-height:1.2; color:var(--orange-strong)}
+  .lead{margin:0 0 14px; font-size:13.5px; line-height:1.5; color:var(--orange-strong)}
+  .feats{list-style:none; margin:0 0 18px; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:7px 18px}
+  .feats li{font-size:12.5px; color:var(--orange-strong); padding-left:16px; position:relative; line-height:1.35}
+  .feats li::before{content:""; position:absolute; left:0; top:6px; width:6px; height:6px; border-radius:50%; background:var(--orange)}
+  .cta{
+    display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+    border:2px solid var(--orange); color:var(--orange); background:transparent;
+    padding:12px 22px; border-radius:12px; font-size:14.5px; font-weight:700;
+    transition:background .18s;
+  }
+  .cta:hover{background:var(--orange-hover)}
+  .cta-note{display:block; font-size:11px; color:var(--orange-soft); margin-top:8px}
+
+  .art{flex:0 0 240px; align-self:stretch; display:flex}
+  .art a{display:block; width:100%; border:1.5px solid var(--orange-line); border-radius:16px; overflow:hidden; line-height:0}
+  .art img{width:100%; height:100%; max-height:260px; object-fit:cover; display:block}
+
+  @media (max-width:760px){
+    .banner{flex-direction:column-reverse; text-align:center; padding:22px}
+    .feats{grid-template-columns:1fr; text-align:left; max-width:300px; margin-left:auto; margin-right:auto}
+    .art{flex:none; width:100%; max-width:340px}
+    .art img{max-height:190px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+  <div class="banner" role="region" aria-label="Upgrade to the full ADHD Student Planner">
+    <div class="copy">
+      <p class="eyebrow">You're on the free version</p>
+      <h2>Unlock the full ADHD Student Planner</h2>
+      <p class="lead">The full planner turns your whole term into one calm system that opens to your day, not a menu.</p>
+      <ul class="feats">
+        <li>Command deck: today's 3, in progress, deadline radar</li>
+        <li>First Step, Time Estimate and Energy on every task</li>
+        <li>Notes, grades, timetable, habits and money, connected</li>
+        <li>Brain-dump inbox and a built-in focus timer</li>
+      </ul>
+      <a class="cta" href="https://notomantra.gumroad.com/l/adhd-student-planner" target="_blank" rel="noopener">Get the full planner &rarr;</a>
+      <span class="cta-note">One-time. Yours forever. Desktop and mobile.</span>
+    </div>
+    <div class="art">
+      <a href="https://notomantra.gumroad.com/l/adhd-student-planner" target="_blank" rel="noopener" aria-label="Get the full ADHD Student Planner on Gumroad">
+        <img src="https://public-files.gumroad.com/e504j0tkn49tg8m48obeqjeu89vr" alt="ADHD Student Planner preview" loading="lazy" />
+      </a>
+    </div>
+  </div>
+</body>
+</html>
