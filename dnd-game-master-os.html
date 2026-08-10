@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Upgrade to the Game Master OS</title>
+<style>
+  :root{
+    --brown:#9F6B53;
+    --brown-strong:#7A5140;
+    --brown-soft:rgba(159,107,83,.62);
+    --brown-faint:rgba(159,107,83,.14);
+    --brown-line:rgba(159,107,83,.30);
+    --brown-hover:rgba(159,107,83,.07);
+  }
+  *{box-sizing:border-box}
+  html,body{background:transparent}
+  body{
+    margin:0; color:var(--brown-strong);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    padding:16px; display:flex; justify-content:center;
+  }
+
+  .card{
+    width:100%; max-width:920px; background:transparent;
+    border:1.5px solid var(--brown-line); border-radius:22px;
+    display:flex; align-items:stretch; overflow:hidden;
+    text-decoration:none; color:inherit;
+    transition:border-color .22s ease, background-color .22s ease;
+  }
+  .card:hover{border-color:var(--brown-soft); background:var(--brown-hover)}
+  .card:focus-visible{outline:2px solid var(--brown); outline-offset:3px}
+
+  /* ---------- Info panel ---------- */
+  .info{flex:1 1 auto; min-width:0; padding:26px 28px; display:flex; flex-direction:column; justify-content:center}
+
+  .pill{
+    display:inline-flex; align-items:center; gap:7px; align-self:flex-start;
+    border:1px solid var(--brown-line); border-radius:999px;
+    padding:5px 11px; font-size:10px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--brown-soft);
+    margin:0 0 13px;
+  }
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--brown); flex:none}
+
+  .name{margin:0 0 7px; font-size:23px; line-height:1.2; font-weight:700; color:var(--brown-strong); letter-spacing:-.01em}
+  .tagline{margin:0 0 16px; font-size:13px; line-height:1.5; color:var(--brown-soft)}
+
+  .ticks{list-style:none; margin:0 0 20px; padding:0; display:grid; gap:8px}
+  .ticks li{display:flex; align-items:flex-start; gap:9px; font-size:12.5px; line-height:1.45; color:var(--brown-strong)}
+  .ticks svg{flex:none; margin-top:2px; color:var(--brown)}
+
+  .cta{
+    align-self:flex-start; display:inline-flex; align-items:center; gap:8px;
+    border:1.5px solid var(--brown-line); border-radius:12px;
+    padding:10px 17px; font-size:12.5px; font-weight:650; color:var(--brown-strong);
+    background:var(--brown-faint);
+    transition:background-color .22s ease, border-color .22s ease, transform .22s ease;
+  }
+  .card:hover .cta{background:var(--brown); border-color:var(--brown); color:#fff; transform:translateX(2px)}
+  .cta svg{flex:none; transition:transform .22s ease}
+  .card:hover .cta svg{transform:translateX(3px)}
+
+  /* ---------- Cover panel ---------- */
+  .cover{
+    flex:0 0 340px; padding:22px 24px 22px 0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cover img{
+    width:100%; height:100%; max-height:250px;
+    object-fit:contain; border-radius:14px; display:block;
+  }
+
+  @media (max-width:720px){
+    .card{flex-direction:column}
+    .info{padding:24px 22px 20px; order:2}
+    .cover{flex:none; width:100%; padding:22px 22px 0; order:1}
+    .cover img{max-height:180px}
+    .name{font-size:20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card,.cta,.cta svg{transition:none}
+    .card:hover .cta{transform:none}
+    .card:hover .cta svg{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<a class="card" href="https://notomantra.gumroad.com/l/dnd-game-master-os-campaign-manager" target="_blank" rel="noopener">
+
+  <div class="info">
+    <span class="pill"><span class="dot"></span>Upgrade</span>
+
+    <h2 class="name">DnD Game Master OS</h2>
+    <p class="tagline">You have the Codex. This runs the whole campaign, from prep night to the recap.</p>
+
+    <ul class="ticks">
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Session pages that score whether you are ready</span>
+      </li>
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Quests, encounters, timeline and table rulings</span>
+      </li>
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Spotlight tracker so no player gets forgotten</span>
+      </li>
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Run two campaigns, share a spoiler-safe wiki</span>
+      </li>
+    </ul>
+
+    <span class="cta">
+      Get the full OS
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </span>
+  </div>
+
+  <div class="cover">
+    <img src="https://public-files.gumroad.com/qjni42nenol9u2pbxpj1ihwuat5e" alt="DnD Game Master OS" loading="lazy" />
+  </div>
+
+</a>
+
+</body>
+</html>
