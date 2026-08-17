@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dissertation OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFFFF;
+    --ink:#0B0B0B;
+    --graphite:#5A5A5A;
+    --hairline:#E2E2E0;
+    --wash:#F6F6F4;
+    --display:"Newsreader",Georgia,"Times New Roman",serif;
+    --body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{-webkit-text-size-adjust:100%}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    padding:0;
+  }
+
+  .band{
+    display:grid;
+    grid-template-columns:minmax(240px,26%) 1fr;
+    align-items:stretch;
+    width:100%;
+    max-width:1600px;
+    margin:0 auto;
+    border:1px solid var(--hairline);
+    background:var(--paper);
+  }
+
+  /* Image panel. contain, never cover, so the cover art is never cropped
+     no matter how wide the band gets. */
+  .plate{
+    background:var(--wash);
+    border-right:1px solid var(--hairline);
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:190px;
+  }
+
+  .plate img{
+    display:block;
+    width:100%;
+    height:100%;
+    max-height:210px;
+    object-fit:contain;
+    object-position:center;
+  }
+
+  .panel{
+    padding:26px 30px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:14px;
+  }
+
+  .eyebrow{
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--graphite);
+  }
+
+  .headline{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(22px,2.5vw,34px);
+    line-height:1.14;
+    letter-spacing:-.01em;
+    max-width:24ch;
+  }
+
+  .headline em{
+    font-style:italic;
+    font-weight:500;
+  }
+
+  .standfirst{
+    font-size:14px;
+    line-height:1.5;
+    color:var(--graphite);
+    max-width:62ch;
+  }
+
+  /* The chain is the product's actual architecture, not an ornament:
+     gap to question to argument to evidence to section to chapter. */
+  .chain{
+    display:flex;
+    align-items:center;
+    gap:0;
+    margin:2px 0 0;
+  }
+
+  .chain svg{display:block;height:22px;width:auto;max-width:100%}
+
+  .chain-label{
+    font-size:10px;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--graphite);
+    margin-left:12px;
+    white-space:nowrap;
+  }
+
+  .foot{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:22px;
+    margin-top:4px;
+  }
+
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--ink);
+    color:var(--paper);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:.02em;
+    padding:12px 22px;
+    border:1px solid var(--ink);
+    transition:background .18s ease,color .18s ease;
+  }
+
+  .cta span.arrow{
+    transition:transform .18s ease;
+    display:inline-block;
+  }
+
+  .cta:hover,.cta:focus-visible{
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  .cta:hover span.arrow,.cta:focus-visible span.arrow{
+    transform:translateX(3px);
+  }
+
+  .cta:focus-visible{
+    outline:2px solid var(--ink);
+    outline-offset:3px;
+  }
+
+  .facts{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:0;
+    font-size:12px;
+    color:var(--graphite);
+  }
+
+  .facts li{
+    list-style:none;
+    padding:0 14px;
+    border-left:1px solid var(--hairline);
+    line-height:1.3;
+  }
+
+  .facts li:first-child{
+    padding-left:0;
+    border-left:0;
+  }
+
+  .facts b{
+    font-weight:600;
+    color:var(--ink);
+  }
+
+  @media (max-width:900px){
+    .band{grid-template-columns:1fr}
+    .plate{
+      border-right:0;
+      border-bottom:1px solid var(--hairline);
+      padding:22px;
+    }
+    .plate img{max-height:240px}
+    .panel{padding:24px 22px}
+    .headline{max-width:none}
+    .chain-label{display:none}
+    .foot{gap:16px}
+    .facts li{
+      padding-left:0;
+      border-left:0;
+      padding-right:14px;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="band">
+
+  <div class="plate">
+    <img src="https://public-files.gumroad.com/lvfaw7duue4wdqoizu0bs9ubqaqk"
+         alt="Dissertation OS for Notion">
+  </div>
+
+  <div class="panel">
+
+    <p class="eyebrow">NotoMantra &middot; Dissertation OS</p>
+
+    <h2 class="headline">Find what's wrong with your thesis <em>before your committee does.</em></h2>
+
+    <div class="chain" aria-hidden="true">
+      <svg viewBox="0 0 300 22" xmlns="http://www.w3.org/2000/svg" role="presentation">
+        <line x1="6" y1="11" x2="294" y2="11" stroke="#C9C9C6" stroke-width="1"/>
+        <circle cx="6"   cy="11" r="3.5" fill="none" stroke="#0B0B0B" stroke-width="1"/>
+        <circle cx="63"  cy="11" r="3.5" fill="none" stroke="#0B0B0B" stroke-width="1"/>
+        <circle cx="120" cy="11" r="3.5" fill="#0B0B0B"/>
+        <circle cx="177" cy="11" r="3.5" fill="none" stroke="#0B0B0B" stroke-width="1"/>
+        <circle cx="234" cy="11" r="3.5" fill="none" stroke="#0B0B0B" stroke-width="1"/>
+        <circle cx="291" cy="11" r="3.5" fill="none" stroke="#0B0B0B" stroke-width="1"/>
+      </svg>
+      <span class="chain-label">Gap &rarr; Question &rarr; Argument &rarr; Evidence &rarr; Section &rarr; Chapter</span>
+    </div>
+
+    <p class="standfirst">Thirteen connected databases that surface the unanswered questions, the claims with no evidence behind them, and the advisor feedback you never closed out.</p>
+
+    <div class="foot">
+      <a class="cta" href="https://notomantra.gumroad.com/l/phd-dissertation">
+        Get Dissertation OS <span class="arrow">&rarr;</span>
+      </a>
+      <ul class="facts">
+        <li><b>13</b> databases</li>
+        <li><b>40</b> defense questions</li>
+        <li><b>14</b> hard conversation scripts</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
