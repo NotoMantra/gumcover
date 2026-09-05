@@ -6,160 +6,182 @@
 <title>Interior Design Business Bundle</title>
 <style>
   /* ============================================================
-     NotoMantra freemium upgrade widget, Notion brown theme
+     NotoMantra freemium upgrade widget, ULTRA WIDE banner
+     Notion brown theme
+
      HOW TO REUSE:
      1. Change the href on <a class="card"> to your product link.
      2. Change the <img src> to your full cover image.
-     3. Edit the name, tagline, features and offer text below.
-     4. Drop into your gumcover repo and embed the page URL in Notion.
+     3. Edit the name, tagline and 3 feature lines below.
+     4. Keep it to 3 features. A 4th makes the card grow taller
+        than the image panel and the whole thing goes long again.
+     5. Drop into your gumcover repo, embed the page URL in Notion.
+
+     WHY IT FITS:
+     The cover panel is locked to 16:9 (Gumroad's native cover
+     ratio) and the image uses object-fit: cover, so it fills the
+     panel edge to edge with no grey bars and no dead padding.
+     Card height is driven entirely by that panel.
      ============================================================ */
   :root{
     --brown-deep:#5a4033;
     --brown:#9f6b53;
-    --brown-soft:#b98c6f;
     --text:#3b2a20;
     --muted:#7a6455;
     --cream:#f7f1ea;
-    --card:rgba(255,252,248,0.72);
-    --panel:rgba(159,107,83,0.06);
+    --panel:rgba(159,107,83,0.07);
     --stroke:rgba(90,64,51,0.14);
-    --shadow:rgba(90,64,51,0.22);
+    --shadow:rgba(90,64,51,0.20);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{background:transparent}
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-    min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:20px;
+    padding:12px;
     color:var(--text);
   }
+
   .card{
     display:grid;
-    grid-template-columns:0.9fr 1.1fr;
+    grid-template-columns:1.15fr 1fr;
+    align-items:stretch;
     width:100%;
-    max-width:920px;
+    max-width:1240px;
     background:
-      radial-gradient(900px 500px at 8% 0%, rgba(255,255,255,0.9) 0%, var(--cream) 45%, #efe4da 100%);
+      radial-gradient(900px 420px at 6% 0%, rgba(255,255,255,0.92) 0%, var(--cream) 48%, #eee2d7 100%);
     border:1px solid var(--stroke);
-    border-radius:20px;
+    border-radius:16px;
     overflow:hidden;
     text-decoration:none;
     color:inherit;
-    box-shadow:0 14px 40px var(--shadow);
+    box-shadow:0 10px 30px var(--shadow);
     transition:transform .25s ease, box-shadow .25s ease;
   }
   .card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 22px 56px var(--shadow);
+    transform:translateY(-3px);
+    box-shadow:0 18px 44px var(--shadow);
   }
 
   /* LEFT PANEL */
   .info{
-    padding:34px 30px;
+    padding:26px 30px;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    gap:16px;
+    gap:12px;
+    min-width:0;
   }
   .pill{
     align-self:flex-start;
     display:inline-flex;
     align-items:center;
-    gap:7px;
+    gap:6px;
     background:var(--panel);
     border:1px solid var(--stroke);
     color:var(--brown-deep);
-    font-size:11px;
+    font-size:10.5px;
     font-weight:600;
-    letter-spacing:.3px;
+    letter-spacing:.4px;
     text-transform:uppercase;
-    padding:6px 12px;
+    padding:5px 11px;
     border-radius:999px;
   }
   .pill .spark{color:var(--brown)}
   .name{
-    font-size:26px;
-    line-height:1.18;
+    font-size:clamp(20px,2.1vw,27px);
+    line-height:1.15;
     font-weight:800;
-    letter-spacing:-0.01em;
+    letter-spacing:-0.015em;
     color:var(--brown-deep);
   }
   .tagline{
-    font-size:14px;
-    line-height:1.5;
+    font-size:13.5px;
+    line-height:1.45;
     color:var(--muted);
   }
   .features{
     list-style:none;
     display:flex;
     flex-direction:column;
-    gap:10px;
-    margin-top:2px;
+    gap:8px;
   }
   .features li{
     display:flex;
-    align-items:flex-start;
+    align-items:center;
     gap:9px;
-    font-size:13.5px;
-    line-height:1.4;
+    font-size:13px;
+    line-height:1.35;
     color:var(--text);
   }
   .features .tick{
     flex-shrink:0;
-    width:18px;height:18px;
-    margin-top:1px;
-    border-radius:6px;
+    width:17px;height:17px;
+    border-radius:5px;
     background:var(--brown);
     color:#fff;
     display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:700;
+    font-size:10px;font-weight:700;
+  }
+  .actions{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:4px;
   }
   .cta{
-    margin-top:8px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
     gap:8px;
-    align-self:flex-start;
     background:var(--brown-deep);
     color:var(--cream);
-    font-size:14px;
+    font-size:13.5px;
     font-weight:700;
-    padding:12px 22px;
-    border-radius:10px;
+    padding:11px 22px;
+    border-radius:9px;
     letter-spacing:.2px;
     transition:background .2s ease;
   }
   .card:hover .cta{background:#452f24}
+  .note{
+    font-size:11.5px;
+    color:var(--muted);
+    letter-spacing:.1px;
+  }
 
-  /* RIGHT PANEL */
+  /* RIGHT PANEL, image fills it completely */
   .cover{
     position:relative;
-    background:
-      linear-gradient(135deg, #efe3d8 0%, #e7d6c8 100%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:22px;
+    aspect-ratio:16 / 9;
+    background:#e7d6c8;
     border-left:1px solid var(--stroke);
+    overflow:hidden;
   }
   .cover img{
     display:block;
-    max-width:100%;
-    max-height:100%;
-    width:auto;height:auto;
-    object-fit:contain;
-    border-radius:12px;
-    box-shadow:0 10px 26px rgba(90,64,51,0.28);
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
   }
 
+  /* Tablet, keep it wide but let text breathe */
+  @media (max-width:900px){
+    .card{grid-template-columns:1.25fr 1fr}
+    .info{padding:20px 22px;gap:10px}
+    .tagline{display:none}
+  }
+
+  /* Phone, stack with the cover on top */
   @media (max-width:640px){
-    .card{grid-template-columns:1fr;max-width:440px}
+    .card{grid-template-columns:1fr;max-width:460px}
     .cover{order:-1;border-left:none;border-bottom:1px solid var(--stroke)}
-    .name{font-size:23px}
+    .info{padding:22px 22px 24px;gap:12px}
+    .tagline{display:block}
   }
 </style>
 </head>
@@ -170,14 +192,16 @@
     <div class="info">
       <span class="pill"><span class="spark">&#10022;</span> 4 systems in one bundle</span>
       <div class="name">Interior Design Business Bundle</div>
-      <div class="tagline">Run your whole interior design studio from one place. Two connected Notion systems, a design spreadsheet, and a full business command center.</div>
+      <div class="tagline">Run your whole studio from one place. Two connected Notion systems, a design spreadsheet, and a full business command center.</div>
       <ul class="features">
         <li><span class="tick">&#10003;</span> Projects, clients, procurement and invoicing, connected</li>
         <li><span class="tick">&#10003;</span> FF&amp;E specs, budgets and installs that do the math</li>
         <li><span class="tick">&#10003;</span> 40+ email templates and client-ready proposals</li>
-        <li><span class="tick">&#10003;</span> Lifetime access, no subscription, your data stays yours</li>
       </ul>
-      <span class="cta">Get the bundle &#8594;</span>
+      <div class="actions">
+        <span class="cta">Get the bundle &#8594;</span>
+        <span class="note">Lifetime access, no subscription</span>
+      </div>
     </div>
 
     <div class="cover">
