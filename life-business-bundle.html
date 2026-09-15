@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life & Business Bundle</title>
+<style>
+  :root {
+    --ink: #1c2230;
+    --muted: #5b6475;
+    --line: #e4e6eb;
+    --paper: #ffffff;
+    --theme: #2f4a7a;
+    --theme-soft: #eef2f8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    padding: 12px;
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr 1fr;
+    align-items: center;
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 18px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(28, 34, 48, .10);
+  }
+
+  .frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--theme-soft);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* slider */
+  .slides img {
+    opacity: 0;
+    transform: translateX(14px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .slides img.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .dots {
+    position: absolute;
+    left: 0; right: 0; bottom: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    z-index: 2;
+  }
+  .dots button {
+    width: 7px; height: 7px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(28, 34, 48, .25);
+    cursor: pointer;
+    padding: 0;
+    transition: background .3s, width .3s;
+  }
+  .dots button.active {
+    background: var(--theme);
+    width: 18px;
+    border-radius: 4px;
+  }
+  .dots button:focus-visible { outline: 2px solid var(--theme); outline-offset: 2px; }
+
+  /* text */
+  .info { text-align: center; }
+  .pill {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--theme);
+    background: var(--theme-soft);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .name {
+    font-size: 22px;
+    font-weight: 750;
+    line-height: 1.2;
+    color: var(--theme);
+    margin-bottom: 6px;
+  }
+  .tagline {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .points {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    margin-bottom: 16px;
+  }
+  .points li {
+    font-size: 13.5px;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .points li::before {
+    content: "✓";
+    color: var(--theme);
+    font-weight: 700;
+  }
+  .cta {
+    display: inline-block;
+    background: var(--theme);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 8px;
+    transition: background .2s;
+  }
+  .card:hover .cta { background: #24395f; }
+  .card:focus-visible { outline: 3px solid var(--theme); outline-offset: 3px; }
+
+  @media (max-width: 760px) {
+    .card { grid-template-columns: 1fr; gap: 16px; }
+    .info { order: 2; }
+    .main { order: 1; }
+    .slides { order: 3; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card, .slides img { transition: none; }
+    .card:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="card" href="https://notomantra.gumroad.com/l/life-business-bundle" target="_blank" rel="noopener">
+
+  <div class="frame main">
+    <img src="https://public-files.gumroad.com/6gg5ysgr2j4m33uq8dx0163u9uj3" alt="Life & Business Bundle cover">
+  </div>
+
+  <div class="info">
+    <span class="pill">Bundle</span>
+    <h2 class="name">Life & Business Bundle</h2>
+    <p class="tagline">Find your system. Then run your business.</p>
+    <ul class="points">
+      <li>Run your life and your business in Notion</li>
+      <li>Standalone systems, one simple purchase</li>
+      <li>Pick the system that fits how you think</li>
+    </ul>
+    <br>
+    <span class="cta">Get the bundle</span>
+  </div>
+
+  <div class="frame slides" id="slides">
+    <img class="active" src="https://public-files.gumroad.com/f2m3s6pwju4yq1ztghqmdo8ugkq9" alt="Bundle preview 1">
+    <img src="https://public-files.gumroad.com/i123iugcbcjmdoopash08n7ggxp3" alt="Bundle preview 2">
+    <img src="https://public-files.gumroad.com/yeoz9vxe6pc8v9i8t7amijmb2uir" alt="Bundle preview 3">
+    <img src="https://public-files.gumroad.com/cb2lttbu2pgfer89ynkpf6yr1nyc" alt="Bundle preview 4">
+    <div class="dots" id="dots"></div>
+  </div>
+
+</a>
+
+<script>
+  (function () {
+    const wrap = document.getElementById('slides');
+    const imgs = wrap.querySelectorAll('img');
+    const dotsEl = document.getElementById('dots');
+    let i = 0, timer = null;
+
+    imgs.forEach((_, n) => {
+      const b = document.createElement('button');
+      b.setAttribute('aria-label', 'Show preview ' + (n + 1));
+      if (n === 0) b.classList.add('active');
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        go(n); restart();
+      });
+      dotsEl.appendChild(b);
+    });
+    const dots = dotsEl.querySelectorAll('button');
+
+    function go(n) {
+      imgs[i].classList.remove('active'); dots[i].classList.remove('active');
+      i = (n + imgs.length) % imgs.length;
+      imgs[i].classList.add('active'); dots[i].classList.add('active');
+    }
+    function start() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      timer = setInterval(() => go(i + 1), 3000);
+    }
+    function restart() { clearInterval(timer); start(); }
+
+    wrap.addEventListener('mouseenter', () => clearInterval(timer));
+    wrap.addEventListener('mouseleave', start);
+    start();
+  })();
+</script>
+</body>
+</html>
