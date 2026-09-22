@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indie Game Dev OS</title>
+<style>
+  /* ============================================================
+     NotoMantra ultra-wide upsell widget, monochrome theme
+     HOW TO REUSE:
+     1. Change the href on <a class="w"> to the product link.
+     2. Change IMG in the four .slide tags to the cover image.
+     3. Edit the pill, name, tagline and features below.
+     ============================================================ */
+  :root {
+    --ink: #111111;
+    --muted: #6b6b6b;
+    --line: #e7e7e5;
+    --card: #ffffff;
+    --soft: #f5f5f3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    padding: 8px;
+  }
+
+  /* Whole widget is one link */
+  .w {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) 2fr;
+    align-items: center;
+    gap: 28px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px 26px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: box-shadow .25s ease, transform .25s ease;
+  }
+  .w:hover { box-shadow: 0 10px 30px rgba(0,0,0,.08); transform: translateY(-1px); }
+
+  /* Left copy */
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 11px;
+    background: var(--soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--ink); }
+
+  .name {
+    margin-top: 14px;
+    font-size: clamp(22px, 2.3vw, 30px);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+  }
+  .tag {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  /* Pixel strip, a small nod to games */
+  .pixels { display: flex; gap: 3px; margin-top: 12px; }
+  .pixels i { width: 9px; height: 9px; border-radius: 2px; background: #e4e4e1; }
+  .pixels i.on { background: var(--ink); }
+  .pixels i.mid { background: #9a9a97; }
+
+  .feats { list-style: none; margin-top: 16px; display: grid; gap: 8px; }
+  .feats li { display: flex; align-items: center; gap: 9px; font-size: 13.5px; }
+  .feats svg { flex: 0 0 auto; }
+
+  .cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 20px;
+    padding: 11px 18px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 14px; font-weight: 700;
+    transition: gap .2s ease;
+  }
+  .w:hover .cta { gap: 12px; }
+
+  /* Right: continuous glide */
+  .reel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: glide 44s linear infinite;
+  }
+  .w:hover .track { animation-play-state: paused; }
+  @keyframes glide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+  }
+  .slide {
+    flex: 0 0 auto;
+    margin-right: 16px;
+    width: clamp(260px, 30vw, 420px);
+    aspect-ratio: 16 / 10;
+    background: var(--soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .slide img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  /* Same image, varied framing so the reel reads as movement, not a repeat */
+  .slide.b img { transform: scale(1.18); transform-origin: 20% 30%; }
+  .slide.c img { transform: scale(1.3);  transform-origin: 80% 70%; }
+  .slide.d img { transform: scale(1.12); transform-origin: 50% 90%; }
+
+  @media (max-width: 760px) {
+    .w { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
+    .slide { width: 72vw; }
+  }
+</style>
+</head>
+<body>
+
+<a class="w" href="https://notomantra.gumroad.com/l/game_dev_os" target="_blank" rel="noopener">
+
+  <div class="info">
+    <span class="pill"><span class="dot"></span>Upgrade your GDD</span>
+    <h2 class="name">Indie Game Dev OS</h2>
+    <p class="tag">Your design doc grows into the whole game. Build, test, market and launch from one place.</p>
+    <div class="pixels" aria-hidden="true">
+      <i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i class="on"></i><i class="mid"></i><i></i><i class="on"></i><i class="on"></i><i class="mid"></i><i></i><i></i>
+    </div>
+    <ul class="feats">
+      <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="#111" opacity=".15"/><path d="M4.8 8.2l2.1 2.1 4.3-4.6" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Scope board, milestones and live progress</li>
+      <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="#111" opacity=".15"/><path d="M4.8 8.2l2.1 2.1 4.3-4.6" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Bugs, playtests and asset licenses</li>
+      <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="#111" opacity=".15"/><path d="M4.8 8.2l2.1 2.1 4.3-4.6" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Wishlists, press and festival deadlines</li>
+      <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="#111" opacity=".15"/><path d="M4.8 8.2l2.1 2.1 4.3-4.6" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>What your game has cost and earned</li>
+    </ul>
+    <span class="cta">See the full system
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+  </div>
+
+  <div class="reel" aria-hidden="true">
+    <div class="track">
+      <div class="slide a"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+      <div class="slide b"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+      <div class="slide c"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+      <div class="slide d"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+      <!-- duplicate set for a seamless loop -->
+      <div class="slide a"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+      <div class="slide b"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+      <div class="slide c"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+      <div class="slide d"><img src="https://public-files.gumroad.com/up92ok8x8hl06qmciywoamp9p1a7" alt=""></div>
+    </div>
+  </div>
+
+</a>
+
+</body>
+</html>
