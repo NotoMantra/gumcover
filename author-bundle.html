@@ -1,187 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Writer's Bundle</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantasy Author Bundle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     NotoMantra freemium upgrade widget, beige theme
-     HOW TO REUSE:
-     1. Change the href on <a class="card"> to your product link.
-     2. Change the <img src> to your full cover image.
-     3. Edit the name, tagline, features and pill text below.
-     4. Drop into your gumcover repo and embed the page URL in Notion.
-     ============================================================ */
   :root{
-    --beige:#f1e9dc;
-    --beige-2:#e7dbc7;
-    --ink:#3a2e22;
-    --ink-soft:#6c5c49;
-    --brown:#8a6b47;
-    --brown-deep:#5f472e;
-    --tan:#a07c52;
-    --stroke:rgba(95,71,46,0.15);
-    --shadow:rgba(95,71,46,0.22);
-    --tick:#8a6b47;
+    --bg1:#fbf8f3; --bg2:#f4ede3; --ink:#2f261f; --muted:#7a6a5c;
+    --accent:#9a6b4f; --accent-deep:#7a4f36; --chip:#efe4d6; --line:#e8ddd0;
+    --speed:80s;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{background:transparent}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:14px;
-  }
-  a.card{
-    display:grid;
-    grid-template-columns:0.85fr 1fr;
-    align-items:stretch;
-    width:100%;
-    max-width:720px;
-    text-decoration:none;
-    color:var(--ink);
-    background:linear-gradient(180deg,var(--beige) 0%,var(--beige-2) 100%);
-    border:1px solid var(--stroke);
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 6px 20px var(--shadow);
-    transition:transform .22s ease, box-shadow .22s ease;
-  }
-  a.card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 14px 34px var(--shadow);
-  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg1)}
+  body{font-family:Inter,system-ui,sans-serif;color:var(--ink);overflow:hidden}
 
-  /* Left info panel */
-  .info{
-    padding:22px 22px 20px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+  a.wrap{
+    position:relative;display:flex;align-items:stretch;height:100vh;min-height:220px;
+    text-decoration:none;color:inherit;overflow:hidden;border-radius:14px;
+    background:linear-gradient(120deg,var(--bg1) 0%,var(--bg2) 55%,#f8f3ec 100%);
+    border:1px solid var(--line);
   }
-  .pill{
-    align-self:flex-start;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:#fff;
-    background:linear-gradient(180deg,var(--brown) 0%,var(--brown-deep) 100%);
-    padding:5px 11px;
-    border-radius:999px;
-  }
-  .name{
-    font-size:21px;
-    font-weight:800;
-    line-height:1.15;
-    letter-spacing:-0.01em;
-    color:var(--ink);
-  }
-  .tagline{
-    font-size:13px;
-    line-height:1.45;
-    color:var(--ink-soft);
-    margin-top:-2px;
-  }
-  .features{
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:7px;
-    margin-top:2px;
-  }
-  .features li{
-    position:relative;
-    padding-left:20px;
-    font-size:12.5px;
-    line-height:1.35;
-    color:var(--ink);
-  }
-  .features li::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:5px;
-    width:11px;
-    height:11px;
-    border-radius:50%;
-    background:var(--tick);
-    box-shadow:inset 0 0 0 2px var(--beige);
-  }
-  .cta{
-    margin-top:6px;
-    align-self:flex-start;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.01em;
-    color:#fff;
-    background:linear-gradient(180deg,var(--tan) 0%,var(--brown) 100%);
-    padding:10px 18px;
-    border-radius:10px;
-    box-shadow:0 4px 12px rgba(138,107,71,0.35);
-  }
+  /* slow drifting glow */
+  .glow{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none}
+  .g1{width:380px;height:380px;background:#eadccb;top:-160px;left:-80px;animation:drift1 26s ease-in-out infinite alternate}
+  .g2{width:420px;height:420px;background:#f3eadf;bottom:-220px;left:38%;animation:drift2 32s ease-in-out infinite alternate}
+  .g3{width:300px;height:300px;background:#e6d5c1;top:-120px;right:-60px;animation:drift1 30s ease-in-out infinite alternate-reverse}
+  @keyframes drift1{to{transform:translate(90px,50px) scale(1.12)}}
+  @keyframes drift2{to{transform:translate(-110px,-40px) scale(1.08)}}
 
-  /* Right cover panel */
-  .cover{
-    background:
-      radial-gradient(120% 120% at 70% 20%, rgba(160,124,82,0.16) 0%, rgba(95,71,46,0.05) 55%, transparent 100%),
-      var(--beige-2);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:16px;
-    border-left:1px solid var(--stroke);
+  /* copy panel */
+  .copy{
+    position:relative;z-index:2;flex:0 0 34%;min-width:300px;max-width:440px;
+    padding:clamp(16px,3.2vh,30px) clamp(18px,2.4vw,34px);
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(6px,1.6vh,12px);
   }
-  .cover img{
-    display:block;
-    max-width:100%;
-    max-height:260px;
-    width:auto;
-    height:auto;
-    object-fit:contain;
-    border-radius:10px;
-    box-shadow:0 6px 18px rgba(58,46,34,0.28);
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(19px,4.4vh,30px);line-height:1.15;letter-spacing:-.01em}
+  h1 em{font-style:normal;color:var(--accent-deep)}
+  .sub{font-size:clamp(12px,2.1vh,14px);line-height:1.5;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:11.5px;font-weight:500;color:var(--accent-deep);background:var(--chip);padding:4px 10px;border-radius:999px}
+  .cta{display:flex;align-items:center;gap:12px;margin-top:2px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;
+    font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;
+    box-shadow:0 6px 18px -6px rgba(154,107,79,.45);transition:background .25s,transform .25s;
   }
+  a.wrap:hover .btn{background:var(--accent-deep);transform:translateY(-1px)}
+  .btn span{transition:transform .25s}
+  a.wrap:hover .btn span{transform:translateX(3px)}
 
-  /* Mobile: stack cover on top, info below */
-  @media (max-width:520px){
-    a.card{
-      grid-template-columns:1fr;
-    }
-    .cover{
-      order:-1;
-      border-left:none;
-      border-bottom:1px solid var(--stroke);
-      padding:18px;
-    }
-    .cover img{max-height:200px}
-    .info{padding:20px}
-    .name{font-size:20px}
+  /* carousel */
+  .stage{
+    position:relative;z-index:1;flex:1;overflow:hidden;display:flex;align-items:center;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+            mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+  }
+  .track{display:flex;gap:18px;width:max-content;height:100%;align-items:center;
+    padding:clamp(12px,3vh,22px) 0;animation:slide var(--speed) linear infinite}
+  a.wrap:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(calc(-50% - 9px))}}
+  .frame{
+    height:100%;aspect-ratio:16/10;flex:0 0 auto;background:#fff;border-radius:10px;
+    border:1px solid var(--line);box-shadow:0 10px 28px -14px rgba(110,80,55,.30);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;
+  }
+  .frame img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:6px}
+
+  @media (prefers-reduced-motion:reduce){ .track{--speed:180s} .glow{animation:none} }
+
+  /* narrow embeds: stack */
+  @media (max-width:760px){
+    body{overflow:auto}
+    a.wrap{flex-direction:column;height:auto}
+    .copy{max-width:none;min-width:0;flex:none}
+    .stage{height:200px;flex:none}
   }
 </style>
 </head>
 <body>
+<a class="wrap" href="https://notomantra.gumroad.com/l/romantasy-author-bundle" target="_blank" rel="noopener">
+  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
 
-  <a class="card" href="https://notomantra.gumroad.com/l/romantasy-author-bundle" target="_blank" rel="noopener">
-    <div class="info">
-      <span class="pill">Writer's Bundle</span>
-      <div class="name">Worldbuilding + Novel &amp; Publishing OS</div>
-      <div class="tagline">Everything to write and publish your book, plus the engine that keeps your romance and fantasy arcs from drifting apart.</div>
-      <ul class="features">
-        <li>Plan, draft and publish, all in Notion</li>
-        <li>Convergence Engine syncs both arcs</li>
-        <li>Worldbuilding, magic and lore lenses</li>
-        <li>Query, submission and launch tracking</li>
-      </ul>
-      <span class="cta">Get the Bundle</span>
+  <div class="copy">
+    <div class="eyebrow">The Romantasy Author Bundle</div>
+    <h1>Your world and your book, <em>together.</em></h1>
+    <p class="sub">Worldbuilding OS for magic, lore and romance. Novelist OS to draft and publish. Two systems, one series.</p>
+    <div class="chips">
+      <span class="chip">Worldbuilding OS</span>
+      <span class="chip">Novelist OS</span>
+      <span class="chip">Idea to publish</span>
     </div>
-    <div class="cover">
-      <img src="https://public-files.gumroad.com/odhzsxkqb0tys8jgrau90fpq4tea" alt="Writer's Bundle cover" loading="lazy"/>
+    <div class="cta">
+      <span class="btn">Get the bundle <span>→</span></span>
     </div>
-  </a>
+  </div>
 
+  <div class="stage">
+    <div class="track">
+      <div class="frame"><img src="https://public-files.gumroad.com/odhzsxkqb0tys8jgrau90fpq4tea" alt="Romantasy Author Bundle screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/9157na1fvxl4pvfvq787pas73acs" alt="Romantasy Author Bundle screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/yrrpupzts8x4y342qy6upwgcsqj1" alt="Romantasy Author Bundle screen"></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/odhzsxkqb0tys8jgrau90fpq4tea" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/9157na1fvxl4pvfvq787pas73acs" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/yrrpupzts8x4y342qy6upwgcsqj1" alt=""></div>
+      <!-- duplicate half for a seamless loop -->
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/odhzsxkqb0tys8jgrau90fpq4tea" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/9157na1fvxl4pvfvq787pas73acs" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/yrrpupzts8x4y342qy6upwgcsqj1" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/odhzsxkqb0tys8jgrau90fpq4tea" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/9157na1fvxl4pvfvq787pas73acs" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/yrrpupzts8x4y342qy6upwgcsqj1" alt=""></div>
+    </div>
+  </div>
+</a>
 </body>
 </html>
