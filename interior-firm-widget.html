@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interior Design Firm OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#fbf8f3; --bg2:#f4ede3; --ink:#2f261f; --muted:#7a6a5c;
+    --accent:#9a6b4f; --accent-deep:#7a4f36; --chip:#efe4d6; --line:#e8ddd0;
+    --speed:60s;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg1)}
+  body{font-family:Inter,system-ui,sans-serif;color:var(--ink);overflow:hidden}
+
+  a.wrap{
+    position:relative;display:flex;align-items:stretch;height:100vh;min-height:220px;
+    text-decoration:none;color:inherit;overflow:hidden;border-radius:14px;
+    background:linear-gradient(120deg,var(--bg1) 0%,var(--bg2) 55%,#f8f3ec 100%);
+    border:1px solid var(--line);
+  }
+  /* slow drifting glow */
+  .glow{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none}
+  .g1{width:380px;height:380px;background:#eadccb;top:-160px;left:-80px;animation:drift1 26s ease-in-out infinite alternate}
+  .g2{width:420px;height:420px;background:#f3eadf;bottom:-220px;left:38%;animation:drift2 32s ease-in-out infinite alternate}
+  .g3{width:300px;height:300px;background:#e6d5c1;top:-120px;right:-60px;animation:drift1 30s ease-in-out infinite alternate-reverse}
+  @keyframes drift1{to{transform:translate(90px,50px) scale(1.12)}}
+  @keyframes drift2{to{transform:translate(-110px,-40px) scale(1.08)}}
+
+  /* copy panel */
+  .copy{
+    position:relative;z-index:2;flex:0 0 34%;min-width:300px;max-width:440px;
+    padding:clamp(16px,3.2vh,30px) clamp(18px,2.4vw,34px);
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(6px,1.6vh,12px);
+  }
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(19px,4.4vh,30px);line-height:1.15;letter-spacing:-.01em}
+  h1 em{font-style:normal;color:var(--accent-deep)}
+  .sub{font-size:clamp(12px,2.1vh,14px);line-height:1.5;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:11.5px;font-weight:500;color:var(--accent-deep);background:var(--chip);padding:4px 10px;border-radius:999px}
+  .cta{display:flex;align-items:center;gap:12px;margin-top:2px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;
+    font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;
+    box-shadow:0 6px 18px -6px rgba(154,107,79,.45);transition:background .25s,transform .25s;
+  }
+  a.wrap:hover .btn{background:var(--accent-deep);transform:translateY(-1px)}
+  .btn span{transition:transform .25s}
+  a.wrap:hover .btn span{transform:translateX(3px)}
+
+  /* carousel */
+  .stage{
+    position:relative;z-index:1;flex:1;overflow:hidden;display:flex;align-items:center;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+            mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+  }
+  .track{display:flex;gap:18px;width:max-content;height:100%;align-items:center;
+    padding:clamp(12px,3vh,22px) 0;animation:slide var(--speed) linear infinite}
+  a.wrap:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(calc(-50% - 9px))}}
+  .frame{
+    height:100%;aspect-ratio:16/10;flex:0 0 auto;background:#fff;border-radius:10px;
+    border:1px solid var(--line);box-shadow:0 10px 28px -14px rgba(110,80,55,.30);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;
+  }
+  .frame img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:6px}
+
+  @media (prefers-reduced-motion:reduce){ .track{--speed:180s} .glow{animation:none} }
+
+  /* narrow embeds: stack */
+  @media (max-width:760px){
+    body{overflow:auto}
+    a.wrap{flex-direction:column;height:auto}
+    .copy{max-width:none;min-width:0;flex:none}
+    .stage{height:200px;flex:none}
+  }
+</style>
+</head>
+<body>
+<a class="wrap" href="https://notomantra.gumroad.com/l/interior-design-firm" target="_blank" rel="noopener">
+  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+
+  <div class="copy">
+    <div class="eyebrow">Interior Design Firm OS</div>
+    <h1>Run every project, <em>from concept to install.</em></h1>
+    <p class="sub">Clients, rooms, products, orders, payments and approvals, all connected. One studio system instead of ten spreadsheets.</p>
+    <div class="chips">
+      <span class="chip">Projects &amp; clients</span>
+      <span class="chip">Procurement</span>
+      <span class="chip">Approvals</span>
+    </div>
+    <div class="cta">
+      <span class="btn">Get the full system <span>→</span></span>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="track">
+      <div class="frame"><img src="https://public-files.gumroad.com/vqy7d9bjb4dphsya86w6v4esa740" alt="Interior Design Firm OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/bb2bu7txvlli20rw4emyqwm30l01" alt="Interior Design Firm OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/ds39d41422u9kms0jyd15kh89oj4" alt="Interior Design Firm OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/2s1ux13ght4cwvstmpge94pt15q7" alt="Interior Design Firm OS screen"></div>
+      <!-- duplicate set for a seamless loop -->
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/vqy7d9bjb4dphsya86w6v4esa740" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/bb2bu7txvlli20rw4emyqwm30l01" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/ds39d41422u9kms0jyd15kh89oj4" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/2s1ux13ght4cwvstmpge94pt15q7" alt=""></div>
+    </div>
+  </div>
+</a>
+</body>
+</html>
