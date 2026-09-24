@@ -1,181 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>The Complete Life System Bundle</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Life System Bundle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     NotoMantra freemium upgrade widget, monochrome theme
-     HOW TO REUSE:
-     1. Change the href on <a class="card"> to your product link.
-     2. Change the <img src> to your full cover image.
-     3. Edit the name, tagline, features and pill text below.
-     4. Drop into your gumcover repo and embed the page URL in Notion.
-     ============================================================ */
   :root{
-    --ink:#5b3fa0;
-    --ink-2:#4a3184;
-    --accent:#7c5cbf;
-    --cream:#faf7ff;
-    --panel:#f3edfb;
-    --stroke:#e6ddf5;
-    --muted:#7a6f8c;
-    --text:#3a2f4a;
-    --cardbg:#fdfbff;
+    --bg1:#fbf9ff; --bg2:#f3edff; --ink:#2a2140; --muted:#6b5f86;
+    --accent:#7c5cd6; --accent-deep:#5b3fb8; --chip:#ece4ff; --line:#e4dbfb;
+    --speed:70s;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
-    background:transparent;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:16px;
-  }
-  .card{
-    width:100%;
-    max-width:820px;
-    display:grid;
-    grid-template-columns:minmax(0,0.85fr) minmax(0,1fr);
-    background:var(--cardbg);
-    border:1px solid var(--stroke);
-    border-radius:18px;
-    overflow:hidden;
-    text-decoration:none;
-    box-shadow:0 6px 22px rgba(91,63,160,0.10);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(91,63,160,0.20)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg1)}
+  body{font-family:Inter,system-ui,sans-serif;color:var(--ink);overflow:hidden}
 
-  /* LEFT PANEL */
-  .info{
-    padding:24px 24px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:12px;
+  a.wrap{
+    position:relative;display:flex;align-items:stretch;height:100vh;min-height:220px;
+    text-decoration:none;color:inherit;overflow:hidden;border-radius:14px;
+    background:linear-gradient(120deg,var(--bg1) 0%,var(--bg2) 55%,#f7f2ff 100%);
+    border:1px solid var(--line);
   }
-  .pill{
-    align-self:flex-start;
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    background:var(--panel);
-    border:1px solid var(--stroke);
-    color:var(--ink);
-    font-size:11px;
-    font-weight:600;
-    letter-spacing:.3px;
-    text-transform:uppercase;
-    padding:6px 12px;
-    border-radius:999px;
-  }
-  .pill .spark{color:var(--accent)}
-  .name{
-    font-size:26px;
-    line-height:1.18;
-    font-weight:800;
-    letter-spacing:-0.01em;
-    color:var(--ink);
-  }
-  .tagline{
-    font-size:14px;
-    line-height:1.5;
-    color:var(--muted);
-  }
-  .features{
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    margin-top:2px;
-  }
-  .features li{
-    display:flex;
-    align-items:flex-start;
-    gap:9px;
-    font-size:13.5px;
-    line-height:1.4;
-    color:var(--text);
-  }
-  .features .tick{
-    flex-shrink:0;
-    width:18px;height:18px;
-    margin-top:1px;
-    border-radius:6px;
-    background:var(--ink);
-    color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:700;
-  }
-  .cta{
-    margin-top:8px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    align-self:flex-start;
-    background:var(--ink);
-    color:var(--cream);
-    font-size:14px;
-    font-weight:700;
-    padding:12px 22px;
-    border-radius:10px;
-    letter-spacing:.2px;
-    transition:background .2s ease;
-  }
-  .card:hover .cta{background:#4a3184}
+  /* slow drifting glow */
+  .glow{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none}
+  .g1{width:380px;height:380px;background:#e2d4ff;top:-160px;left:-80px;animation:drift1 26s ease-in-out infinite alternate}
+  .g2{width:420px;height:420px;background:#efe6ff;bottom:-220px;left:38%;animation:drift2 32s ease-in-out infinite alternate}
+  .g3{width:300px;height:300px;background:#dccbff;top:-120px;right:-60px;animation:drift1 30s ease-in-out infinite alternate-reverse}
+  @keyframes drift1{to{transform:translate(90px,50px) scale(1.12)}}
+  @keyframes drift2{to{transform:translate(-110px,-40px) scale(1.08)}}
 
-  /* RIGHT PANEL */
-  .cover{
-    position:relative;
-    background:linear-gradient(135deg, #f3edfb 0%, #e9ddf7 100%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:22px;
-    border-left:1px solid var(--stroke);
+  /* copy panel */
+  .copy{
+    position:relative;z-index:2;flex:0 0 34%;min-width:300px;max-width:440px;
+    padding:clamp(16px,3.2vh,30px) clamp(18px,2.4vw,34px);
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(6px,1.6vh,12px);
   }
-  .cover img{
-    display:block;
-    max-width:100%;
-    max-height:290px;
-    width:auto;height:auto;
-    object-fit:contain;
-    border-radius:12px;
-    box-shadow:0 10px 26px rgba(91,63,160,0.24);
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(19px,4.4vh,30px);line-height:1.15;letter-spacing:-.01em}
+  h1 em{font-style:normal;color:var(--accent-deep)}
+  .sub{font-size:clamp(12px,2.1vh,14px);line-height:1.5;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:11.5px;font-weight:500;color:var(--accent-deep);background:var(--chip);padding:4px 10px;border-radius:999px}
+  .cta{display:flex;align-items:center;gap:12px;margin-top:2px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;
+    font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;
+    box-shadow:0 6px 18px -6px rgba(124,92,214,.55);transition:background .25s,transform .25s;
   }
+  a.wrap:hover .btn{background:var(--accent-deep);transform:translateY(-1px)}
+  .btn span{transition:transform .25s}
+  a.wrap:hover .btn span{transform:translateX(3px)}
+  .price{font-size:13px;color:var(--muted)}
+  .price b{color:var(--ink);font-size:16px}
 
-  @media (max-width:640px){
-    .card{grid-template-columns:1fr;max-width:440px}
-    .cover{order:-1;border-left:none;border-bottom:1px solid var(--stroke)}
-    .name{font-size:23px}
+  /* carousel */
+  .stage{
+    position:relative;z-index:1;flex:1;overflow:hidden;display:flex;align-items:center;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+            mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+  }
+  .track{display:flex;gap:18px;width:max-content;height:100%;align-items:center;
+    padding:clamp(12px,3vh,22px) 0;animation:slide var(--speed) linear infinite}
+  a.wrap:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(calc(-50% - 9px))}}
+  .frame{
+    height:100%;aspect-ratio:16/10;flex:0 0 auto;background:#fff;border-radius:10px;
+    border:1px solid var(--line);box-shadow:0 10px 28px -14px rgba(76,52,150,.35);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;
+  }
+  .frame img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:6px}
+
+  @media (prefers-reduced-motion:reduce){ .track{--speed:180s} .glow{animation:none} }
+
+  /* narrow embeds: stack */
+  @media (max-width:760px){
+    body{overflow:auto}
+    a.wrap{flex-direction:column;height:auto}
+    .copy{max-width:none;min-width:0;flex:none}
+    .stage{height:200px;flex:none}
   }
 </style>
 </head>
 <body>
+<a class="wrap" href="https://notomantra.gumroad.com/l/life-system-bundle" target="_blank" rel="noopener">
+  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
 
-  <a class="card" href="https://notomantra.gumroad.com/l/life-system-bundle" target="_blank" rel="noopener">
-
-    <div class="info">
-      <span class="pill"><span class="spark">&#10022;</span> One system for your whole life</span>
-      <div class="name">The Complete Life System Bundle</div>
-      <div class="tagline">Single templates fix one slice of life. This connects all of it in one workspace.</div>
-      <ul class="features">
-        <li><span class="tick">&#10003;</span> Planning, habits, tasks, finance and goals in one hub</li>
-        <li><span class="tick">&#10003;</span> ADHD-friendly, with energy modes and recovery built in</li>
-        <li><span class="tick">&#10003;</span> Three years of pre-built days, zero setup</li>
-        <li><span class="tick">&#10003;</span> Lifetime access, no subscription, data stays yours</li>
-      </ul>
-      <span class="cta">Get the bundle &#8594;</span>
+  <div class="copy">
+    <div class="eyebrow">The Complete Life System</div>
+    <h1>Your whole life, <em>in one calm place.</em></h1>
+    <p class="sub">Tasks, ideas, goals and notes, connected so nothing slips. Built for busy heads and scattered days.</p>
+    <div class="chips">
+      <span class="chip">ADHD-friendly</span>
+      <span class="chip">Life OS</span>
+      <span class="chip">Second Brain</span>
     </div>
-
-    <div class="cover">
-      <img src="https://public-files.gumroad.com/zamc4ksvx6s12z0we2161talj8ie" alt="The Complete Life System Bundle cover"/>
+    <div class="cta">
+      <span class="btn">Get the bundle <span>→</span></span>
     </div>
+  </div>
 
-  </a>
-
+  <div class="stage">
+    <div class="track">
+      <div class="frame"><img src="https://public-files.gumroad.com/zamc4ksvx6s12z0we2161talj8ie" alt="Complete Life System overview"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/f2m3s6pwju4yq1ztghqmdo8ugkq9" alt="Life System screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/yeoz9vxe6pc8v9i8t7amijmb2uir" alt="Life System screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/sfihngmgecdjvsdm35alx9o202fa" alt="Life System screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/cq9van68z94v1q577asfg4vnj4pe" alt="Life System screen"></div>
+      <!-- duplicate set for a seamless loop -->
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/zamc4ksvx6s12z0we2161talj8ie" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/f2m3s6pwju4yq1ztghqmdo8ugkq9" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/yeoz9vxe6pc8v9i8t7amijmb2uir" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/sfihngmgecdjvsdm35alx9o202fa" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/cq9van68z94v1q577asfg4vnj4pe" alt=""></div>
+    </div>
+  </div>
+</a>
 </body>
 </html>
