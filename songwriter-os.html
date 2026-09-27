@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Songwriter OS</title>
+<style>
+  /*
+    NotoMantra gumcover widget: Songwriter OS (light blue)
+    Layout: copy panel left, slow-moving screenshot strip right, fade edges.
+    To reuse: change the CONFIG values in the script and the --accent tokens.
+  */
+  :root {
+    --bg: #eef5fd;
+    --panel: #f7fbff;
+    --line: #d4e5f7;
+    --ink: #13294b;
+    --muted: #4f6a8f;
+    --accent: #2f6fc6;
+    --accent-deep: #1f5aa8;
+    --chip: #e0edfb;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 4px;
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: minmax(300px, 38%) 1fr;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 300px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 34px -18px rgba(31, 90, 168, 0.35);
+  }
+
+  /* Left: copy */
+  .copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding: 28px 30px;
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    background: var(--chip);
+    padding: 5px 11px;
+    border-radius: 999px;
+  }
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(47, 111, 198, 0.18);
+  }
+  h2 {
+    font-size: 26px;
+    line-height: 1.15;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .sub {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-deep);
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+  .cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 11px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .cta:hover { background: var(--accent-deep); transform: translateY(-1px); }
+  .cta svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
+  .cta:hover svg { transform: translateX(3px); }
+
+  /* Right: moving screenshots */
+  .reel {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(180deg, #e6f0fc 0%, #dce9f9 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  }
+  .track {
+    display: flex;
+    gap: 18px;
+    padding: 22px 0;
+    width: max-content;
+    animation: slide 55s linear infinite;
+  }
+  .reel:hover .track { animation-play-state: paused; }
+  .track a { display: block; flex: 0 0 auto; }
+  .track img {
+    display: block;
+    height: 250px;
+    width: auto;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: #fff;
+    box-shadow: 0 8px 24px -14px rgba(19, 41, 75, 0.45);
+  }
+  @keyframes slide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+  }
+
+  /* Tablet and phone */
+  @media (max-width: 860px) {
+    .card { grid-template-columns: 1fr; }
+    .copy { border-right: none; border-bottom: 1px solid var(--line); padding: 22px; }
+    h2 { font-size: 22px; }
+    .track img { height: 190px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="copy">
+    <span class="eyebrow"><span class="dot"></span>Songwriter OS</span>
+    <h2>Write it, own it, get paid for it.</h2>
+    <p class="sub">Your lyrics, splits, registrations, pitches and royalties in one Notion workspace. Every song page is where you write, and everything about that song sits right below it.</p>
+    <div class="chips">
+      <span class="chip">Lyric sheets</span>
+      <span class="chip">Line Bank</span>
+      <span class="chip">Split checks</span>
+      <span class="chip">Registrations</span>
+      <span class="chip">Pitch tracker</span>
+      <span class="chip">Royalties</span>
+    </div>
+    <a class="cta" id="cta" href="#" target="_blank" rel="noopener">
+      Get Songwriter OS
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="reel">
+    <div class="track" id="track"></div>
+  </div>
+</div>
+
+<script>
+  var CONFIG = {
+    productUrl: "https://notomantra.gumroad.com/l/songwriter-os",
+    images: [
+      "https://public-files.gumroad.com/gsm4slm45g92e6cmsru39xmvalen",
+      "https://public-files.gumroad.com/pgirnc3d061ggtfi1l9xksfe5er1",
+      "https://public-files.gumroad.com/2xplfpzw0an5880oibfv6xz6cjca",
+      "https://public-files.gumroad.com/oplylar9pj0vpprw30bxyj5kcqsb",
+      "https://public-files.gumroad.com/yrmje9kfarb4em30bvltsye8069r"
+    ]
+  };
+
+  document.getElementById("cta").href = CONFIG.productUrl;
+
+  // Images are listed twice so the strip loops seamlessly.
+  var track = document.getElementById("track");
+  CONFIG.images.concat(CONFIG.images).forEach(function (src, i) {
+    var a = document.createElement("a");
+    a.href = CONFIG.productUrl;
+    a.target = "_blank";
+    a.rel = "noopener";
+    var img = document.createElement("img");
+    img.src = src;
+    img.alt = "Songwriter OS screenshot " + ((i % CONFIG.images.length) + 1);
+    img.loading = "eager";
+    a.appendChild(img);
+    track.appendChild(a);
+  });
+</script>
+
+</body>
+</html>
