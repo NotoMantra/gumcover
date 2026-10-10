@@ -11,6 +11,7 @@
     --orange-soft:rgba(217,115,13,.62);
     --orange-line:rgba(217,115,13,.30);
     --orange-hover:rgba(217,115,13,.08);
+    --fade:1800ms;   /* crossfade length */
   }
   *{box-sizing:border-box}
   html,body{background:transparent}
@@ -20,7 +21,7 @@
     padding:16px; display:flex; justify-content:center;
   }
   .banner{
-    width:100%; max-width:920px; background:transparent;
+    width:100%; max-width:960px; background:transparent;
     border:1.5px solid var(--orange-line); border-radius:22px;
     display:flex; align-items:center; gap:26px; padding:24px 28px; overflow:hidden;
   }
@@ -40,15 +41,29 @@
   .cta:hover{background:var(--orange-hover)}
   .cta-note{display:block; font-size:11px; color:var(--orange-soft); margin-top:8px}
 
-  .art{flex:0 0 240px; align-self:stretch; display:flex}
-  .art a{display:block; width:100%; border:1.5px solid var(--orange-line); border-radius:16px; overflow:hidden; line-height:0}
-  .art img{width:100%; height:100%; max-height:260px; object-fit:cover; display:block}
+  /* ---------- Image slideshow (full image, never cropped) ---------- */
+  .art{flex:0 0 360px; display:flex}
+  .art a{
+    position:relative; display:block; width:100%;
+    aspect-ratio:16/10;
+    border:1.5px solid var(--orange-line); border-radius:16px; overflow:hidden;
+  }
+  .art img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:contain;           /* shows the whole image, no cut */
+    display:block; opacity:0;
+    transition:opacity var(--fade) ease-in-out;
+  }
+  .art img.on{opacity:1}
+
+  .dots{position:absolute; left:0; right:0; bottom:8px; display:flex; justify-content:center; gap:6px; pointer-events:none}
+  .dots span{width:6px; height:6px; border-radius:50%; background:var(--orange-line); transition:background .6s}
+  .dots span.on{background:var(--orange)}
 
   @media (max-width:760px){
     .banner{flex-direction:column-reverse; text-align:center; padding:22px}
     .feats{grid-template-columns:1fr; text-align:left; max-width:300px; margin-left:auto; margin-right:auto}
-    .art{flex:none; width:100%; max-width:340px}
-    .art img{max-height:190px}
+    .art{flex:none; width:100%; max-width:420px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -68,11 +83,48 @@
       <a class="cta" href="https://notomantra.gumroad.com/l/adhd-student-planner" target="_blank" rel="noopener">Get the full planner &rarr;</a>
       <span class="cta-note">One-time. Yours forever. Desktop and mobile.</span>
     </div>
+
     <div class="art">
-      <a href="https://notomantra.gumroad.com/l/adhd-student-planner" target="_blank" rel="noopener" aria-label="Get the full ADHD Student Planner on Gumroad">
-        <img src="https://public-files.gumroad.com/e504j0tkn49tg8m48obeqjeu89vr" alt="ADHD Student Planner preview" loading="lazy" />
+      <a id="slides" href="https://notomantra.gumroad.com/l/adhd-student-planner" target="_blank" rel="noopener" aria-label="Get the full ADHD Student Planner on Gumroad">
+        <img class="on" src="https://public-files.gumroad.com/e504j0tkn49tg8m48obeqjeu89vr" alt="ADHD Student Planner preview 1" />
+        <img src="https://public-files.gumroad.com/0jfzj9hp7sko33s8mrkskdkbuqe0" alt="ADHD Student Planner preview 2" loading="lazy" />
+        <img src="https://public-files.gumroad.com/u9o4r5qtuhhaf6v6m3jg6xa9b1zp" alt="ADHD Student Planner preview 3" loading="lazy" />
+        <img src="https://public-files.gumroad.com/os9x6vor8ubwq11wekzt59gvbdvx" alt="ADHD Student Planner preview 4" loading="lazy" />
+        <img src="https://public-files.gumroad.com/mty6428gpgjn0oiiyectj8mm5u9b" alt="ADHD Student Planner preview 5" loading="lazy" />
+        <img src="https://public-files.gumroad.com/yuik6g902l52smw52lcbaiov8d7b" alt="ADHD Student Planner preview 6" loading="lazy" />
+        <div class="dots" aria-hidden="true"></div>
       </a>
     </div>
   </div>
+
+<script>
+(function(){
+  var HOLD = 4200;   // how long each image stays fully visible (ms)
+  var wrap = document.getElementById('slides');
+  var imgs = wrap.querySelectorAll('img');
+  var dotsBox = wrap.querySelector('.dots');
+  var dots = [];
+  for (var i = 0; i < imgs.length; i++){
+    var d = document.createElement('span');
+    if (i === 0) d.className = 'on';
+    dotsBox.appendChild(d); dots.push(d);
+  }
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var cur = 0, timer = null;
+  function next(){
+    imgs[cur].classList.remove('on'); dots[cur].classList.remove('on');
+    cur = (cur + 1) % imgs.length;
+    imgs[cur].classList.add('on'); dots[cur].classList.add('on');
+  }
+  function start(){ if (!timer) timer = setInterval(next, HOLD); }
+  function stop(){ clearInterval(timer); timer = null; }
+
+  wrap.addEventListener('mouseenter', stop);   // pause on hover
+  wrap.addEventListener('mouseleave', start);
+  document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+  start();
+})();
+</script>
 </body>
 </html>
