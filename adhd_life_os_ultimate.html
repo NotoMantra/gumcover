@@ -1,233 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADHD Life OS Ultimate</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADHD Life OS Ultimate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#f4f0fb; --bg2:#ece5f8; --ink:#2a2140; --muted:#6e6487;
+    --accent:#7b5cc4; --accent-deep:#6646b0; --chip:#e3d9f5; --line:#ddd2f0;
+    --speed:70s;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg1)}
+  body{font-family:Inter,system-ui,sans-serif;color:var(--ink);overflow:hidden}
 
-    :root {
-      --purple-deep: #4C2889;
-      --purple: #6940A5;
-      --purple-mid: #9065B0;
-      --purple-tint: #F7F3FA;
-      --purple-line: #E6DCF0;
-    }
+  a.wrap{
+    position:relative;display:flex;align-items:stretch;height:100vh;
+    text-decoration:none;color:inherit;overflow:hidden;border-radius:14px;
+    background:linear-gradient(120deg,var(--bg1) 0%,var(--bg2) 55%,#efe8fa 100%);
+    border:1px solid var(--line);
+  }
+  /* slow drifting glow */
+  .glow{position:absolute;border-radius:50%;filter:blur(60px);opacity:.7;pointer-events:none}
+  .g1{width:380px;height:380px;background:#e2d4fb;top:-160px;left:-80px;animation:drift1 26s ease-in-out infinite alternate}
+  .g2{width:420px;height:420px;background:#e8dcfa;bottom:-220px;left:38%;animation:drift2 32s ease-in-out infinite alternate}
+  .g3{width:300px;height:300px;background:#dccdf7;top:-120px;right:-60px;animation:drift1 30s ease-in-out infinite alternate-reverse}
+  @keyframes drift1{to{transform:translate(90px,50px) scale(1.12)}}
+  @keyframes drift2{to{transform:translate(-110px,-40px) scale(1.08)}}
 
-    body {
-      background: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 12px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    }
+  /* copy panel */
+  .copy{
+    position:relative;z-index:2;flex:0 0 34%;max-width:440px;
+    padding:clamp(16px,3.2vh,30px) clamp(18px,2.4vw,34px);
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(6px,1.6vh,12px);
+  }
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(19px,4.4vh,30px);line-height:1.15;letter-spacing:-.01em}
+  h1 em{font-style:normal;color:var(--accent)}
+  .sub{font-size:clamp(12px,2.1vh,14px);line-height:1.5;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:11.5px;font-weight:500;color:#4b3a78;background:var(--chip);padding:4px 10px;border-radius:999px}
+  .cta{display:flex;align-items:center;gap:12px;margin-top:2px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;
+    font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;
+    box-shadow:0 6px 18px -6px rgba(102,70,176,.45);transition:background .25s,transform .25s;
+  }
+  a.wrap:hover .btn{background:var(--accent-deep);transform:translateY(-1px)}
+  .btn span{transition:transform .25s}
+  a.wrap:hover .btn span{transform:translateX(3px)}
 
-    a.product-card {
-      display: flex;
-      width: 100%;
-      max-width: 820px;
-      text-decoration: none;
-      color: inherit;
-      background: #ffffff;
-      border: 1px solid var(--purple-line);
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 2px 10px rgba(76, 40, 137, 0.07);
-    }
+  /* carousel */
+  .stage{
+    position:relative;z-index:1;flex:1;overflow:hidden;display:flex;align-items:center;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+            mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+  }
+  .track{display:flex;gap:18px;width:max-content;height:100%;align-items:center;
+    padding:clamp(12px,3vh,22px) 0;animation:slide var(--speed) linear infinite}
+  a.wrap:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(calc(-50% - 9px))}}
+  .frame{
+    height:100%;aspect-ratio:16/10;flex:0 0 auto;background:#fff;border-radius:10px;
+    border:1px solid var(--line);box-shadow:0 10px 28px -14px rgba(75,58,120,.35);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;
+  }
+  .frame img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:6px}
 
-    a.product-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 34px rgba(76, 40, 137, 0.20);
-    }
+  @media (prefers-reduced-motion:reduce){ .track{--speed:180s} .glow{animation:none} }
 
-    /* LEFT: features panel */
-    .panel {
-      flex: 0 0 46%;
-      padding: 26px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-width: 0;
-      background: linear-gradient(180deg, #ffffff 0%, var(--purple-tint) 100%);
-    }
+  /* never show scrollbars, whatever size the embed is */
+  html,body{overflow:hidden;width:100%}
+  a.wrap{width:100%;min-width:0}
+  .copy{min-width:0}
+  .stage{min-width:0;min-height:0}
+  h1,.sub{overflow-wrap:anywhere}
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      align-self: flex-start;
-      background: var(--purple);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      padding: 5px 11px;
-      border-radius: 999px;
-      margin-bottom: 14px;
-    }
+  /* medium widths: give the copy less room */
+  @media (max-width:1000px){
+    .copy{flex-basis:40%;max-width:none}
+  }
 
-    .pill .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #ffffff;
-      animation: pulse 1.6s ease-in-out infinite;
-    }
+  /* narrow embeds: stack, but stay inside the frame */
+  @media (max-width:760px){
+    a.wrap{flex-direction:column;height:100vh}
+    .copy{flex:0 0 auto;max-width:none;padding:14px 16px 6px;gap:6px}
+    .stage{flex:1 1 auto;min-height:0}
+    .track{padding:8px 0 12px}
+    .sub{display:none}
+  }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
-
-    .title {
-      font-size: clamp(18px, 3.4vw, 22px);
-      font-weight: 700;
-      color: var(--purple-deep);
-      line-height: 1.18;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      font-size: clamp(11px, 2.3vw, 13px);
-      color: #7a6a8c;
-      line-height: 1.35;
-      margin-bottom: 16px;
-    }
-
-    .features {
-      list-style: none;
-      margin-bottom: 18px;
-    }
-
-    .features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      font-size: clamp(11.5px, 2.4vw, 13.5px);
-      color: #33254a;
-      line-height: 1.3;
-      margin-bottom: 9px;
-    }
-
-    .features li:last-child { margin-bottom: 0; }
-
-    .features .spark {
-      flex-shrink: 0;
-      color: var(--purple-mid);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .cta-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--purple);
-      color: #ffffff;
-      font-size: clamp(12px, 2.5vw, 13.5px);
-      font-weight: 600;
-      padding: 10px 17px;
-      border-radius: 9px;
-      letter-spacing: 0.2px;
-      transition: background 0.2s ease;
-      white-space: nowrap;
-    }
-
-    a.product-card:hover .cta-btn { background: var(--purple-deep); }
-
-    .price-note {
-      font-size: 11px;
-      color: #8d80a0;
-      line-height: 1.25;
-    }
-
-    .price-note b {
-      color: var(--purple-deep);
-      font-weight: 700;
-    }
-
-    /* RIGHT: cover, framed and fully visible (no crop) */
-    .cover {
-      flex: 1 1 54%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      background:
-        radial-gradient(circle at 70% 30%, #F6F1FB 0%, #EFE8F7 55%, #E7DEF2 100%);
-      min-width: 0;
-    }
-
-    .cover img {
-      display: block;
-      max-width: 100%;
-      max-height: 280px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 10px;
-      box-shadow: 0 8px 22px rgba(76, 40, 137, 0.18);
-    }
-
-    /* Stack on narrow embeds (Notion columns, mobile) */
-    @media (max-width: 560px) {
-      a.product-card { flex-direction: column; }
-      .panel { flex-basis: auto; }
-      .cover {
-        flex-basis: auto;
-        order: -1;
-        padding: 16px;
-      }
-      .cover img { max-height: 200px; }
-    }
-  </style>
+  /* short embeds: drop the extras so nothing gets cut */
+  @media (max-height:300px){
+    .sub{display:none}
+  }
+  @media (max-height:230px){
+    .chips{display:none}
+  }
+  @media (max-width:760px) and (max-height:340px){
+    .chips{display:none}
+    h1{font-size:18px}
+  }
+  @media (max-width:420px){
+    .chips{display:none}
+    .btn{padding:8px 14px;font-size:13px}
+  }
+</style>
 </head>
 <body>
+<a class="wrap" href="https://notomantra.gumroad.com/l/adhd-life-pro" target="_blank" rel="noopener">
+  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
 
-  <!--
-    HOW TO USE:
-    1. href points to the paid Gumroad product.
-    2. img src is the full cover image (shown fully, never cropped).
-    3. Drop into the gumcover GitHub Pages repo, embed the page URL in Notion.
-  -->
-
-  <a class="product-card" href="https://notomantra.gumroad.com/l/adhd-life-pro" target="_blank" rel="noopener">
-
-    <div class="panel">
-      <span class="pill"><span class="dot"></span>UPGRADE TO THE FULL SYSTEM</span>
-
-      <div class="title">ADHD Life OS Ultimate</div>
-      <div class="subtitle">Built for the ADHD brain, not against it.</div>
-
-      <ul class="features">
-        <li><span class="spark">&#10022;</span>5 Energy Modes on your Today dashboard</li>
-        <li><span class="spark">&#10022;</span>Master Actions, the only place tasks live</li>
-        <li><span class="spark">&#10022;</span>Full and Minimum version of every routine</li>
-        <li><span class="spark">&#10022;</span>Friction Reasons that unstick real tasks</li>
-      </ul>
-
-      <div class="cta-row">
-        <span class="cta-btn">Unlock Ultimate &#8594;</span>
-        <span class="price-note"><b>Pay once.</b><br>Free lifetime updates.</span>
-      </div>
+  <div class="copy">
+    <div class="eyebrow">ADHD Life OS Ultimate</div>
+    <h1>Built for the ADHD brain, <em>not against it.</em></h1>
+    <p class="sub">Tasks, routines, goals and the stuff you keep forgetting, all in one calm place. For people who have tried every other template.</p>
+    <div class="chips">
+      <span class="chip">Tasks</span>
+      <span class="chip">Routines</span>
+      <span class="chip">Goals</span>
     </div>
-
-    <div class="cover">
-      <img src="https://public-files.gumroad.com/f2m3s6pwju4yq1ztghqmdo8ugkq9" alt="ADHD Life OS Ultimate cover">
+    <div class="cta">
+      <span class="btn">Get the full system <span>→</span></span>
     </div>
+  </div>
 
-  </a>
-
+  <div class="stage">
+    <div class="track">
+      <div class="frame"><img src="https://public-files.gumroad.com/f2m3s6pwju4yq1ztghqmdo8ugkq9" alt="ADHD Life OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/1mqtqkt4219xxkm7kupufu0ajba4" alt="ADHD Life OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/e9ck5s8c4u545mb7qos5or242cwc" alt="ADHD Life OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/dtk0oa0xc8ea1ahbnw48bkw6phpa" alt="ADHD Life OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/m6e0znqhuayqxmsr8nriqwoe3v6g" alt="ADHD Life OS screen"></div>
+      <div class="frame"><img src="https://public-files.gumroad.com/2z8gnr8iydcctawdfx2uflonoj5h" alt="ADHD Life OS screen"></div>
+      <!-- duplicate set for a seamless loop -->
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/f2m3s6pwju4yq1ztghqmdo8ugkq9" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/1mqtqkt4219xxkm7kupufu0ajba4" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/e9ck5s8c4u545mb7qos5or242cwc" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/dtk0oa0xc8ea1ahbnw48bkw6phpa" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/m6e0znqhuayqxmsr8nriqwoe3v6g" alt=""></div>
+      <div class="frame" aria-hidden="true"><img src="https://public-files.gumroad.com/2z8gnr8iydcctawdfx2uflonoj5h" alt=""></div>
+    </div>
+  </div>
+</a>
 </body>
 </html>
