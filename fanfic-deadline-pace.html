@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deadline Pace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#9F6B53;--ink:#37352F;--soft:#7d6a60;--tint:rgba(159,107,83,.04);--line:rgba(159,107,83,.35);--red:#C4554D;--green:#448361}
+@media (prefers-color-scheme:dark){:root{--brown:#BA856F;--ink:#E6E1DC;--soft:#a8968c;--tint:rgba(186,133,111,.05);--line:rgba(186,133,111,.4);--red:#E06B63;--green:#5FA57D}}
+*{box-sizing:border-box;margin:0}
+html,body{background:transparent;height:100%}
+body{font-family:'Lora',Georgia,serif;color:var(--ink);padding:6px;display:flex}
+.card{flex:1;border:3px solid var(--brown);border-radius:16px;background:var(--tint);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:var(--brown);line-height:1.1}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+label{flex:1;min-width:110px;font-size:12px;color:var(--soft);display:flex;flex-direction:column;gap:4px}
+input{font-family:'Lora',Georgia,serif;font-size:16px;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+input:focus{outline:none;border-color:var(--brown)}
+.big{text-align:center}
+.num{font-family:'Fraunces',Georgia,serif;font-size:46px;font-weight:500;color:var(--brown);line-height:1;font-variant-numeric:tabular-nums}
+.cap{font-size:13px;color:var(--soft);font-style:italic}
+.bar{height:10px;border:2px solid var(--brown);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--brown);transition:width .3s}
+.stats{display:flex;justify-content:space-around;text-align:center}
+.stats .n{font-family:'Fraunces',Georgia,serif;font-size:20px;color:var(--brown)}
+.verdict{text-align:center;font-family:'Fraunces',Georgia,serif;font-size:16px;font-weight:600}
+.v-green{color:var(--green)}.v-red{color:var(--red)}.v-brown{color:var(--brown)}
+.hint{font-size:12px;color:var(--soft);font-style:italic;text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+  <div><div class="eyebrow">Fanfic OS</div><h1>Deadline Pace</h1></div>
+  <div class="row">
+    <label>Target words<input id="target" type="number" min="0" inputmode="numeric" placeholder="20000"></label>
+    <label>Written so far<input id="done" type="number" min="0" inputmode="numeric" placeholder="12200"></label>
+  </div>
+  <div class="row">
+    <label>Deadline<input id="due" type="date"></label>
+    <label>Writing days per week<input id="dpw" type="number" min="1" max="7" value="7" inputmode="numeric"></label>
+  </div>
+  <div class="big"><div class="num" id="pace">0</div><div class="cap">words per writing day</div></div>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+  <div class="stats">
+    <div><div class="n" id="left">0</div><div class="cap">words left</div></div>
+    <div><div class="n" id="days">0</div><div class="cap">days left</div></div>
+    <div><div class="n" id="pct">0%</div><div class="cap">done</div></div>
+  </div>
+  <div class="verdict v-brown" id="verdict">Add your target and deadline.</div>
+  <div class="hint">For Big Bangs, gift exchanges and fests. Above 2,000 words a day is a red flag.</div>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  ['target','done','due','dpw'].forEach(function(id){var v=store.get('ffos-pace-'+id);if(v)$(id).value=v});
+  function run(){
+    var t=parseInt($('target').value,10)||0,d=parseInt($('done').value,10)||0,dpw=Math.min(7,Math.max(1,parseInt($('dpw').value,10)||7));
+    var left=Math.max(0,t-d);var pct=t?Math.min(100,Math.round(d/t*100)):0;
+    $('left').textContent=left.toLocaleString('en-US');$('pct').textContent=pct+'%';$('fill').style.width=pct+'%';
+    var v=$('verdict');
+    if(!t||!$('due').value){$('days').textContent='0';$('pace').textContent='0';v.textContent='Add your target and deadline.';v.className='verdict v-brown';return}
+    var p=$('due').value.split('-');var due=new Date(+p[0],+p[1]-1,+p[2]);var today=new Date();today.setHours(0,0,0,0);
+    var days=Math.round((due-today)/86400000);$('days').textContent=Math.max(0,days);
+    if(left===0){$('pace').textContent='0';v.textContent='Target met. Polish and submit.';v.className='verdict v-green';return}
+    if(days<=0){$('pace').textContent=left.toLocaleString('en-US');v.textContent=days<0?'Past due. Ask the mods about an extension.':'Due today.';v.className='verdict v-red';return}
+    var wdays=Math.max(1,Math.round(days*dpw/7));var pace=Math.ceil(left/wdays);
+    $('pace').textContent=pace.toLocaleString('en-US');
+    if(pace>2000){v.textContent='Too steep. Trim the scope or ask for an extension.';v.className='verdict v-red'}
+    else if(pace>1000){v.textContent='Doable, but protect your writing time.';v.className='verdict v-brown'}
+    else{v.textContent='Comfortable pace. You are on track.';v.className='verdict v-green'}
+  }
+  ['target','done','due','dpw'].forEach(function(id){$(id).addEventListener('input',function(){store.set('ffos-pace-'+id,this.value);run()})});
+  run();
+})();
+</script>
+</body>
+</html>

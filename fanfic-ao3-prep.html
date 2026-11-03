@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AO3 Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#9F6B53;--ink:#37352F;--soft:#7d6a60;--tint:rgba(159,107,83,.04);--line:rgba(159,107,83,.35);--red:#C4554D;--green:#448361}
+@media (prefers-color-scheme:dark){:root{--brown:#BA856F;--ink:#E6E1DC;--soft:#a8968c;--tint:rgba(186,133,111,.05);--line:rgba(186,133,111,.4);--red:#E06B63;--green:#5FA57D}}
+*{box-sizing:border-box;margin:0}
+html,body{background:transparent;height:100%}
+body{font-family:'Lora',Georgia,serif;color:var(--ink);padding:6px;display:flex}
+.card{flex:1;border:3px solid var(--brown);border-radius:16px;background:var(--tint);padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:var(--brown);line-height:1.1}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lbl{font-family:'Fraunces',Georgia,serif;font-size:14px;color:var(--brown);letter-spacing:.06em;text-transform:uppercase}
+.count{font-size:12px;font-style:italic;color:var(--soft);font-variant-numeric:tabular-nums}
+.count.over{color:var(--red);font-style:normal;font-weight:500}
+.count.ok{color:var(--green)}
+textarea{font-family:'Lora',Georgia,serif;font-size:14px;line-height:1.5;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:10px;width:100%;resize:vertical}
+textarea:focus{outline:none;border-color:var(--brown)}
+#out{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+button{font-family:'Lora',Georgia,serif;font-size:14px;color:var(--brown);background:transparent;border:2px solid var(--brown);border-radius:999px;padding:5px 14px;cursor:pointer}
+button.on,button.primary{background:var(--brown);color:#fff}
+@media (prefers-color-scheme:dark){button.on,button.primary{color:#1f1d1a}}
+.hint{font-size:12px;color:var(--soft);font-style:italic}
+.note{font-size:12px;color:var(--soft);font-style:italic;text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+  <div><div class="eyebrow">Fanfic OS</div><h1>AO3 Prep</h1></div>
+  <div class="tabs" id="tabs">
+    <button data-k="summary" data-max="1250" class="on">Summary</button>
+    <button data-k="notes" data-max="5000">Notes</button>
+    <button data-k="chapter" data-max="0">Chapter</button>
+  </div>
+  <div class="head"><span class="lbl" id="lbl">Summary</span><span class="count" id="count">0 / 1,250</span></div>
+  <textarea id="inp" rows="6" placeholder="Paste your summary here."></textarea>
+  <div class="hint" id="hint">AO3 caps summaries at 1,250 characters.</div>
+  <div class="head"><span class="lbl">AO3-ready HTML</span><button class="primary" id="copy">Copy</button></div>
+  <textarea id="out" rows="5" readonly placeholder="Clean HTML appears here. Paste it into AO3's HTML tab."></textarea>
+  <div class="hint">*word* or _word_ becomes italics, **word** becomes bold, a line of *** or ~~~ becomes a scene break.</div>
+  <div class="note">Your text never leaves this page. Nothing is uploaded or saved.</div>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var max=1250,key='summary',drafts={summary:'',notes:'',chapter:''};
+  var hints={summary:'AO3 caps summaries at 1,250 characters.',notes:'AO3 caps beginning and end notes at 5,000 characters each.',chapter:'No limit here. Use this to turn a whole chapter into clean HTML.'};
+  var ph={summary:'Paste your summary here.',notes:'Paste your opening or closing note here.',chapter:'Paste your chapter here.'};
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function inline(s){
+    s=esc(s);
+    s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    s=s.replace(/(^|[^*\w])\*(?!\s)(.+?)(?<!\s)\*(?!\*)/g,'$1<em>$2</em>');
+    s=s.replace(/(^|[^_\w])_(?!\s)(.+?)(?<!\s)_(?!\w)/g,'$1<em>$2</em>');
+    return s;
+  }
+  function convert(t){
+    var lines=t.replace(/\r/g,'').split(/\n/);var out=[],para=[];
+    function flush(){if(para.length){out.push('<p>'+para.map(inline).join('<br />')+'</p>');para=[]}}
+    lines.forEach(function(l){
+      var s=l.trim();
+      if(!s){flush();return}
+      if(/^([*~#\-=_]\s*){3,}$/.test(s)||/^[*~#]$/.test(s)){flush();out.push('<hr />');return}
+      para.push(s);
+    });
+    flush();return out.join('\n\n');
+  }
+  function run(){
+    var t=$('inp').value;drafts[key]=t;
+    var n=t.length;
+    if(max){$('count').textContent=n.toLocaleString('en-US')+' / '+max.toLocaleString('en-US');$('count').className='count'+(n>max?' over':(n?' ok':''));if(n>max)$('count').textContent+='  ('+(n-max).toLocaleString('en-US')+' over)'}
+    else{var w=(t.trim().match(/\S+/g)||[]).length;$('count').textContent=w.toLocaleString('en-US')+' words';$('count').className='count'}
+    $('out').value=t.trim()?convert(t):'';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('#tabs button'),function(b){
+    b.onclick=function(){
+      Array.prototype.forEach.call(document.querySelectorAll('#tabs button'),function(x){x.classList.remove('on')});
+      b.classList.add('on');key=b.getAttribute('data-k');max=parseInt(b.getAttribute('data-max'),10);
+      $('lbl').textContent=b.textContent;$('hint').textContent=hints[key];$('inp').placeholder=ph[key];$('inp').value=drafts[key];run();
+    };
+  });
+  $('inp').addEventListener('input',run);
+  $('copy').onclick=function(){
+    var v=$('out').value;if(!v)return;
+    var done=function(){$('copy').textContent='Copied';setTimeout(function(){$('copy').textContent='Copy'},1400)};
+    try{navigator.clipboard.writeText(v).then(done,function(){$('out').select();document.execCommand('copy');done()})}catch(e){$('out').select();document.execCommand('copy');done()}
+  };
+  run();
+})();
+</script>
+</body>
+</html>

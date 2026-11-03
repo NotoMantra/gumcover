@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trope Spinner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#9F6B53;--ink:#37352F;--soft:#7d6a60;--tint:rgba(159,107,83,.04);--line:rgba(159,107,83,.35)}
+@media (prefers-color-scheme:dark){:root{--brown:#BA856F;--ink:#E6E1DC;--soft:#a8968c;--tint:rgba(186,133,111,.05);--line:rgba(186,133,111,.4)}}
+*{box-sizing:border-box;margin:0}
+html,body{background:transparent;height:100%}
+body{font-family:'Lora',Georgia,serif;color:var(--ink);padding:6px;display:flex}
+.card{flex:1;border:3px solid var(--brown);border-radius:16px;background:var(--tint);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:var(--brown);line-height:1.1}
+.slots{display:flex;flex-direction:column;gap:8px}
+.slot{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.slot .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);width:62px;flex:none}
+.slot .v{font-family:'Fraunces',Georgia,serif;font-size:18px;color:var(--brown);flex:1;min-width:0}
+.lock{font-size:12px;padding:3px 10px}
+button{font-family:'Lora',Georgia,serif;font-size:14px;color:var(--brown);background:transparent;border:2px solid var(--brown);border-radius:999px;padding:6px 16px;cursor:pointer}
+button.on,button.primary{background:var(--brown);color:#fff}
+@media (prefers-color-scheme:dark){button.on,button.primary{color:#1f1d1a}}
+.actions{display:flex;gap:8px;justify-content:center}
+.prompt{font-style:italic;text-align:center;color:var(--ink);font-size:15px;line-height:1.5}
+.hint{font-size:12px;color:var(--soft);font-style:italic;text-align:center}
+.spin .v{opacity:.35}
+</style>
+</head>
+<body>
+<div class="card">
+  <div><div class="eyebrow">Fanfic OS</div><h1>Trope Spinner</h1></div>
+  <div class="slots" id="slots"></div>
+  <div class="actions"><button class="primary" id="spin">Spin</button><button id="copy">Copy</button></div>
+  <div class="prompt" id="prompt">Spin for a plot bunny. Lock what you like and spin the rest.</div>
+  <div class="hint">Log the keepers in your Plot Bunny Inbox.</div>
+</div>
+<script>
+(function(){
+  var D={
+    AU:['Coffee Shop AU','Modern AU','Royalty AU','Soulmate AU','Hogwarts-style School AU','Space AU','Time Loop AU','Fantasy Kingdom AU','College AU','Small Town AU','Post-Apocalypse AU','Regency AU','Mafia AU','Bakery AU','Bookshop AU','No Powers AU','Role Swap AU','Ghost AU'],
+    Trope:['Enemies to Lovers','Fake Dating','Slow Burn','Only One Bed','Forced Proximity','Mutual Pining','Hurt/Comfort','Found Family','Secret Identity','Second Chance','Arranged Marriage','Rivals to Lovers','Amnesia','Fix-It','Pining in Secret','Accidental Marriage','Bodyguard','Love Letters'],
+    Setting:['Snowed In','A Long Train Journey','The Night Before a Wedding','A Lighthouse','A Masquerade Ball','A Hospital Waiting Room','A Road Trip','A Rainy Bus Stop','The Last Day of Summer','A Library After Hours','A Festival Market','A Stranded Ship','A Rooftop at Dawn','A Power Outage','A Wedding Gone Wrong','A Haunted Inn']
+  };
+  var keys=['AU','Trope','Setting'],cur={},locked={};
+  var $=function(id){return document.getElementById(id)};
+  function pick(a,not){var x;do{x=a[Math.floor(Math.random()*a.length)]}while(a.length>1&&x===not);return x}
+  function build(){
+    $('slots').innerHTML=keys.map(function(k){return '<div class="slot" id="s-'+k+'"><span class="k">'+k+'</span><span class="v" id="v-'+k+'">…</span><button class="lock" data-k="'+k+'">Lock</button></div>'}).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('.lock'),function(b){
+      b.onclick=function(){var k=b.getAttribute('data-k');locked[k]=!locked[k];b.classList.toggle('on',locked[k]);b.textContent=locked[k]?'Locked':'Lock'};
+    });
+  }
+  function show(){
+    keys.forEach(function(k){$('v-'+k).textContent=cur[k]});
+    var t=cur.Trope.toLowerCase(),art=/^[aeiou]/.test(t)?'an ':'a ';
+    var s=cur.Setting.toLowerCase(),inn=/^(a|an|the) /.test(s)?'':'a ';
+    var au=/^[AEIOU]/.test(cur.AU)?'an ':'a ';
+    $('prompt').textContent='Write '+art+t+' story set in '+inn+s+', as '+au+cur.AU+'.';
+  }
+  function spin(){
+    var n=0,todo=keys.filter(function(k){return !locked[k]});if(!todo.length)return;
+    todo.forEach(function(k){$('s-'+k).classList.add('spin')});
+    var t=setInterval(function(){
+      todo.forEach(function(k){$('v-'+k).textContent=pick(D[k])});
+      if(++n>8){clearInterval(t);todo.forEach(function(k){cur[k]=pick(D[k],cur[k]);$('s-'+k).classList.remove('spin')});show()}
+    },60);
+  }
+  $('spin').onclick=spin;
+  $('copy').onclick=function(){
+    var v=keys.map(function(k){return cur[k]}).join(' + ');
+    var done=function(){$('copy').textContent='Copied';setTimeout(function(){$('copy').textContent='Copy'},1400)};
+    try{navigator.clipboard.writeText(v).then(done,done)}catch(e){done()}
+  };
+  build();keys.forEach(function(k){cur[k]=pick(D[k])});show();
+})();
+</script>
+</body>
+</html>

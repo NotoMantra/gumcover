@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Sprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#9F6B53;--ink:#37352F;--soft:#7d6a60;--tint:rgba(159,107,83,.04);--line:rgba(159,107,83,.35)}
+@media (prefers-color-scheme:dark){:root{--brown:#BA856F;--ink:#E6E1DC;--soft:#a8968c;--tint:rgba(186,133,111,.05);--line:rgba(186,133,111,.4)}}
+*{box-sizing:border-box;margin:0}
+html,body{background:transparent;height:100%}
+body{font-family:'Lora',Georgia,serif;color:var(--ink);padding:6px;display:flex}
+.card{flex:1;border:3px solid var(--brown);border-radius:16px;background:var(--tint);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:var(--brown);line-height:1.1}
+.time{font-family:'Fraunces',Georgia,serif;font-size:52px;font-weight:500;color:var(--brown);text-align:center;font-variant-numeric:tabular-nums;line-height:1}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+button{font-family:'Lora',Georgia,serif;font-size:14px;color:var(--brown);background:transparent;border:2px solid var(--brown);border-radius:999px;padding:6px 14px;cursor:pointer}
+button.on,button.primary{background:var(--brown);color:#fff}
+@media (prefers-color-scheme:dark){button.on,button.primary{color:#1f1d1a}}
+button:disabled{opacity:.4;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+label{flex:1;min-width:120px;font-size:12px;color:var(--soft);display:flex;flex-direction:column;gap:4px}
+input{font-family:'Lora',Georgia,serif;font-size:16px;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+input:focus{outline:none;border-color:var(--brown)}
+.result{border-top:1.5px dashed var(--line);padding-top:10px;display:flex;justify-content:space-around;text-align:center}
+.num{font-family:'Fraunces',Georgia,serif;font-size:26px;color:var(--brown)}
+.cap{font-size:12px;color:var(--soft);font-style:italic}
+.note{font-size:12px;color:var(--soft);font-style:italic;text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+  <div><div class="eyebrow">Fanfic OS</div><h1>Word Sprint</h1></div>
+  <div class="chips" id="chips">
+    <button data-m="15">15 min</button><button data-m="25" class="on">25 min</button><button data-m="45">45 min</button>
+  </div>
+  <div class="time" id="time">25:00</div>
+  <div class="chips">
+    <button class="primary" id="go">Start</button><button id="reset">Reset</button>
+  </div>
+  <div class="row">
+    <label>Words at start<input id="startW" type="number" min="0" inputmode="numeric" placeholder="e.g. 12400"></label>
+    <label>Words at end<input id="endW" type="number" min="0" inputmode="numeric" placeholder="after the sprint"></label>
+  </div>
+  <div class="result">
+    <div><div class="num" id="written">0</div><div class="cap">words written</div></div>
+    <div><div class="num" id="wph">0</div><div class="cap">words per hour</div></div>
+  </div>
+  <div class="note" id="msg">Pick a length, note your word count, and go.</div>
+</div>
+<script>
+(function(){
+  var mins=25,left=1500,elapsed=0,timer=null,running=false;
+  var $=function(id){return document.getElementById(id)};
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  function fmt(s){var m=Math.floor(s/60),r=s%60;return (m<10?'0':'')+m+':'+(r<10?'0':'')+r}
+  function draw(){$('time').textContent=fmt(left)}
+  function calc(){
+    var a=parseInt($('startW').value,10),b=parseInt($('endW').value,10);
+    if(isNaN(a)||isNaN(b)){ $('written').textContent='0';$('wph').textContent='0';return }
+    var w=Math.max(0,b-a);$('written').textContent=w.toLocaleString('en-US');
+    var mm=(elapsed>0?elapsed:mins*60)/60;
+    $('wph').textContent=Math.round(w/mm*60).toLocaleString('en-US');
+  }
+  function stop(){clearInterval(timer);timer=null;running=false;$('go').textContent=left>0&&elapsed>0?'Resume':'Start'}
+  function tick(){
+    left--;elapsed++;draw();
+    if(left<=0){stop();$('go').textContent='Start';$('go').disabled=true;$('msg').textContent='Time. Type your new word count to see how you did.';calc()}
+  }
+  $('go').onclick=function(){
+    if(running){stop();$('msg').textContent='Paused.';return}
+    running=true;$('go').textContent='Pause';$('msg').textContent='Writing. No editing, just words.';
+    timer=setInterval(tick,1000);
+  };
+  $('reset').onclick=function(){stop();left=mins*60;elapsed=0;$('go').disabled=false;$('go').textContent='Start';$('endW').value='';calc();draw();$('msg').textContent='Pick a length, note your word count, and go.'};
+  Array.prototype.forEach.call(document.querySelectorAll('#chips button'),function(b){
+    b.onclick=function(){
+      if(running)return;
+      Array.prototype.forEach.call(document.querySelectorAll('#chips button'),function(x){x.classList.remove('on')});
+      b.classList.add('on');mins=parseInt(b.getAttribute('data-m'),10);left=mins*60;elapsed=0;$('go').disabled=false;draw();calc();
+    };
+  });
+  $('startW').oninput=function(){store.set('ffos-sprint-start',this.value);calc()};
+  $('endW').oninput=calc;
+  var saved=store.get('ffos-sprint-start');if(saved)$('startW').value=saved;
+  draw();
+})();
+</script>
+</body>
+</html>

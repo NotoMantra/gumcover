@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter Checker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#9F6B53;--ink:#37352F;--soft:#7d6a60;--tint:rgba(159,107,83,.04);--line:rgba(159,107,83,.35)}
+@media (prefers-color-scheme:dark){:root{--brown:#BA856F;--ink:#E6E1DC;--soft:#a8968c;--tint:rgba(186,133,111,.05);--line:rgba(186,133,111,.4)}}
+*{box-sizing:border-box;margin:0}
+html,body{background:transparent;height:100%}
+body{font-family:'Lora',Georgia,serif;color:var(--ink);padding:6px;display:flex}
+.card{flex:1;border:3px solid var(--brown);border-radius:16px;background:var(--tint);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:var(--brown);line-height:1.1}
+textarea{font-family:'Lora',Georgia,serif;font-size:14px;line-height:1.5;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:10px;width:100%;min-height:120px;resize:vertical}
+textarea:focus{outline:none;border-color:var(--brown)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+@media (max-width:420px){.grid{grid-template-columns:repeat(2,1fr)}}
+.num{font-family:'Fraunces',Georgia,serif;font-size:24px;color:var(--brown);font-variant-numeric:tabular-nums}
+.cap{font-size:12px;color:var(--soft);font-style:italic}
+.sub{font-family:'Fraunces',Georgia,serif;font-size:14px;color:var(--brown);letter-spacing:.06em;text-transform:uppercase}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{border:2px solid var(--brown);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--brown)}
+.tag b{font-family:'Fraunces',Georgia,serif;margin-left:4px}
+.long{font-size:13px;font-style:italic;color:var(--soft);border-left:3px solid var(--line);padding-left:10px}
+.note{font-size:12px;color:var(--soft);font-style:italic;text-align:center}
+.empty{font-size:13px;color:var(--soft);font-style:italic}
+</style>
+</head>
+<body>
+<div class="card">
+  <div><div class="eyebrow">Fanfic OS</div><h1>Chapter Checker</h1></div>
+  <textarea id="txt" placeholder="Paste a chapter or scene here."></textarea>
+  <div class="grid">
+    <div><div class="num" id="words">0</div><div class="cap">words</div></div>
+    <div><div class="num" id="read">0</div><div class="cap">min read</div></div>
+    <div><div class="num" id="sent">0</div><div class="cap">sentences</div></div>
+    <div><div class="num" id="avg">0</div><div class="cap">avg words per sentence</div></div>
+  </div>
+  <div class="sub">Most repeated words</div>
+  <div class="tags" id="tags"><span class="empty">Paste something to see which words you lean on.</span></div>
+  <div class="sub">Longest sentence</div>
+  <div class="long" id="long">Nothing yet.</div>
+  <div class="note">Your text never leaves this page. Nothing is uploaded or saved.</div>
+</div>
+<script>
+(function(){
+  var stop=('the a an and or but if then so of to in on at by for with from into onto over under as is was were be been being am are it its it\'s this that these those he she they them his her hers their theirs him i me my mine you your yours we us our ours not no yes do did does done have has had having would could should will can just like what when where who whom which how all any some one there here than too very out up down off about again back only even still own same such more most other into through while before after because though although around against between both each few nor once said says say get got go went come came know knew see saw look looked been\'t don\'t didn\'t wasn\'t isn\'t can\'t won\'t couldn\'t i\'m i\'d i\'ll you\'re that\'s there\'s what\'s').split(' ');
+  var S={};stop.forEach(function(w){S[w]=1});
+  var $=function(id){return document.getElementById(id)};
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function run(){
+    var t=$('txt').value.trim();
+    var words=t?t.match(/[A-Za-zÀ-ɏ0-9'’-]+/g)||[]:[];
+    var n=words.length;
+    var sents=t?t.split(/(?<=[.!?…])\s+|\n+/).map(function(s){return s.trim()}).filter(function(s){return /[A-Za-z0-9]/.test(s)}):[];
+    $('words').textContent=n.toLocaleString('en-US');
+    $('read').textContent=n?Math.max(1,Math.round(n/238)):0;
+    $('sent').textContent=sents.length.toLocaleString('en-US');
+    $('avg').textContent=sents.length?Math.round(n/sents.length):0;
+    var c={};words.forEach(function(w){w=w.toLowerCase().replace(/’/g,"'").replace(/^'+|'+$/g,'');if(w.length<4||S[w])return;c[w]=(c[w]||0)+1});
+    var top=Object.keys(c).filter(function(k){return c[k]>1}).sort(function(a,b){return c[b]-c[a]}).slice(0,5);
+    $('tags').innerHTML=top.length?top.map(function(k){return '<span class="tag">'+esc(k)+'<b>'+c[k]+'</b></span>'}).join(''):'<span class="empty">'+(n?'No word repeats yet. Clean prose.':'Paste something to see which words you lean on.')+'</span>';
+    var longest='';sents.forEach(function(s){if(s.split(/\s+/).length>longest.split(/\s+/).length)longest=s});
+    $('long').textContent=longest?longest.split(/\s+/).length+' words: '+(longest.length>220?longest.slice(0,220)+'…':longest):'Nothing yet.';
+  }
+  $('txt').addEventListener('input',run);
+})();
+</script>
+</body>
+</html>

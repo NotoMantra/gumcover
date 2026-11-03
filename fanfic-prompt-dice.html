@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt Dice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#9F6B53;--ink:#37352F;--soft:#7d6a60;--tint:rgba(159,107,83,.04);--line:rgba(159,107,83,.35)}
+@media (prefers-color-scheme:dark){:root{--brown:#BA856F;--ink:#E6E1DC;--soft:#a8968c;--tint:rgba(186,133,111,.05);--line:rgba(186,133,111,.4)}}
+*{box-sizing:border-box;margin:0}
+html,body{background:transparent;height:100%}
+body{font-family:'Lora',Georgia,serif;color:var(--ink);padding:6px;display:flex}
+.card{flex:1;border:3px solid var(--brown);border-radius:16px;background:var(--tint);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:var(--brown);line-height:1.1}
+.dice{display:flex;flex-direction:column;gap:8px}
+.die{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.die .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);width:72px;flex:none}
+.die .v{font-family:'Fraunces',Georgia,serif;font-size:17px;color:var(--brown);flex:1;min-width:0;line-height:1.3}
+.die.first .v{font-style:italic}
+.die.roll .v{opacity:.35}
+button{font-family:'Lora',Georgia,serif;font-size:14px;color:var(--brown);background:transparent;border:2px solid var(--brown);border-radius:999px;padding:6px 16px;cursor:pointer}
+button.small{font-size:12px;padding:3px 10px;flex:none}
+button.primary{background:var(--brown);color:#fff}
+@media (prefers-color-scheme:dark){button.primary{color:#1f1d1a}}
+.actions{display:flex;gap:8px;justify-content:center}
+.brief{font-style:italic;text-align:center;font-size:15px;line-height:1.5}
+.hint{font-size:12px;color:var(--soft);font-style:italic;text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+  <div><div class="eyebrow">Fanfic Writer</div><h1>Prompt Dice</h1></div>
+  <div class="dice" id="dice"></div>
+  <div class="actions"><button class="primary" id="all">Roll all</button><button id="copy">Copy</button></div>
+  <div class="brief" id="brief"></div>
+  <div class="hint">Keep the ones that bite in your Plot Bunny Inbox.</div>
+</div>
+<script>
+(function(){
+  var D={
+    'First line':['"You kept it. All this time, you kept it."','The letter arrived three years too late.','Nobody else noticed the door was open.','"Say that again. Slowly."','It was the second time the house had burned down.','They agreed never to talk about the wedding.','The last train left without either of them.','"I am not crying. It is raining inside."','Somebody had rearranged the stars again.','The apology was rehearsed. The kiss was not.','By midnight, the whole town knew.','"Do you trust me?" "Absolutely not."','The map ended where the sea began.','It started, as most disasters do, with a bet.','Every clock in the castle had stopped at 3:12.','"Wrong room," she said, and did not leave.'],
+    'Feeling':['Longing','Relief','Jealousy','Quiet joy','Regret','Tenderness','Dread','Homesickness','Pride','Guilt','Hope','Grief','Giddiness','Betrayal'],
+    'Place':['A kitchen at 2am','A hospital corridor','A train platform in snow','The back row of a theater','A rooftop after the party','A flooded library','A roadside motel','A ship below deck','A greenhouse in winter','An empty ballroom','A laundromat','A battlefield at dawn','A childhood bedroom','A bookshop closing for good']
+  };
+  var keys=Object.keys(D),cur={};
+  var $=function(id){return document.getElementById(id)};
+  function pick(a,not){var x;do{x=a[Math.floor(Math.random()*a.length)]}while(a.length>1&&x===not);return x}
+  function slug(k){return k.replace(/\s/g,'-')}
+  $('dice').innerHTML=keys.map(function(k,i){return '<div class="die'+(i===0?' first':'')+'" id="d-'+slug(k)+'"><span class="k">'+k+'</span><span class="v" id="v-'+slug(k)+'"></span><button class="small" data-k="'+k+'">Re-roll</button></div>'}).join('');
+  function brief(){
+    $('brief').textContent='Write 100 words about '+cur['Feeling'].toLowerCase()+' in '+cur['Place'].charAt(0).toLowerCase()+cur['Place'].slice(1)+'. Open with the first line.';
+  }
+  function roll(list){
+    var n=0;list.forEach(function(k){$('d-'+slug(k)).classList.add('roll')});
+    var t=setInterval(function(){
+      list.forEach(function(k){$('v-'+slug(k)).textContent=pick(D[k])});
+      if(++n>7){clearInterval(t);list.forEach(function(k){cur[k]=pick(D[k],cur[k]);$('v-'+slug(k)).textContent=cur[k];$('d-'+slug(k)).classList.remove('roll')});brief()}
+    },60);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.die button'),function(b){b.onclick=function(){roll([b.getAttribute('data-k')])}});
+  $('all').onclick=function(){roll(keys)};
+  $('copy').onclick=function(){
+    var v=keys.map(function(k){return k+': '+cur[k]}).join('\n')+'\n'+$('brief').textContent;
+    var done=function(){$('copy').textContent='Copied';setTimeout(function(){$('copy').textContent='Copy'},1400)};
+    try{navigator.clipboard.writeText(v).then(done,done)}catch(e){done()}
+  };
+  keys.forEach(function(k){cur[k]=pick(D[k]);$('v-'+slug(k)).textContent=cur[k]});brief();
+})();
+</script>
+</body>
+</html>
