@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fanfic Writer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#9F6B53;--ink:#37352F;--soft:#8A7468;--line:#D9C3B7}
+@media (prefers-color-scheme:dark){:root{--brown:#C08B74;--ink:#E6E1DC;--soft:#B3A096;--line:#5A4A42}}
+*{box-sizing:border-box;margin:0}
+html,body{background:transparent;height:100%}
+body{display:flex;align-items:center;padding:2px;font-family:'Lora',Georgia,serif}
+.bar{flex:1;min-width:0;display:flex;align-items:stretch;height:36px;border:1.5px solid var(--brown);border-radius:999px;overflow:hidden}
+a{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:9px;padding:0 14px;text-decoration:none;color:var(--ink);white-space:nowrap;transition:background .2s}
+a:hover{background:rgba(159,107,83,.07)}
+a+a{border-left:1.5px solid var(--line)}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--brown);animation:p 2.4s ease-in-out infinite}
+a+a .dot{animation-delay:1.2s}
+@keyframes p{0%,100%{box-shadow:0 0 0 0 rgba(159,107,83,.45)}50%{box-shadow:0 0 0 5px rgba(159,107,83,0)}}
+.k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.n{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:14px;color:var(--brown)}
+.s{font-size:13px;font-style:italic;color:var(--soft);overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ar{flex:none;color:var(--brown);font-size:14px;transition:transform .2s}
+a:hover .ar{transform:translateX(3px)}
+@media (max-width:760px){.s{display:none}}
+@media (max-width:460px){.k{display:none}a{padding:0 10px;gap:7px}.n{font-size:13px}}
+@media (max-width:300px){.ar{display:none}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a href="https://notomantra.gumroad.com/l/fanfic-os" target="_blank" rel="noopener">
+    <span class="dot"></span><span class="k">Full system</span><span class="n">Fanfic OS</span><span class="s">plot bunny to posted chapter</span><span class="ar">→</span>
+  </a>
+  <a href="https://notomantra.gumroad.com/l/romantasy-author-bundle" target="_blank" rel="noopener">
+    <span class="dot"></span><span class="k">Bundle</span><span class="n">Writer's Bundle</span><span class="s">worldbuilding + novel OS</span><span class="ar">→</span>
+  </a>
+</div>
+</body>
+</html>
